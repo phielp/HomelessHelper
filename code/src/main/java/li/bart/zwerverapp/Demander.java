@@ -1,8 +1,11 @@
 package li.bart.zwerverapp;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Demander {
@@ -14,6 +17,9 @@ public class Demander {
 	private String description;
 	private int numberOfRequests;
 	private String locationGPS;
+	
+	@OneToMany
+	private List<Request> requests;
 	
 	public Demander() {
 	}
