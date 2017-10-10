@@ -16,7 +16,7 @@ public class User {
 	
 	
 	
-	
+	public User() {}
 	
 
 	public User(String userName, String password, userType userpermission) {
@@ -26,9 +26,6 @@ public class User {
 		this.userpermission = userpermission;
 	}
 
-
-	private enum userType {Supplier, Demander};
-	private userType userPermission;
 
 	public Long getId() {
 		return id;
