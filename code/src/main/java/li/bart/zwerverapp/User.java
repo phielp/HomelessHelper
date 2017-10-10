@@ -1,11 +1,8 @@
 package li.bart.zwerverapp;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -15,10 +12,6 @@ public class User {
 	private String userName, password;
 	private enum userType {Supplier, Demander};
 	private userType userPermission;
-	@OneToMany
-	private List<Demander> demanders;
-	@OneToMany
-	private List<Supplier> suppliers;
 	
 	
 	

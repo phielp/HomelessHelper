@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Supplier {
+public class Supplier extends User{
 	@Id
 	@GeneratedValue
 	private Long id;
