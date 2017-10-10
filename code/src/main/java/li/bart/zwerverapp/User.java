@@ -20,6 +20,18 @@ public class User {
 	@OneToMany
 	private List<Supplier> suppliers;
 	
+	
+	
+
+	
+	
+
+	public User(String userName, String password) {
+		super();
+		this.userName = userName;
+		this.password = password;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -50,5 +62,11 @@ public class User {
 
 	public void setUserPermission(userType userPermission) {
 		this.userPermission = userPermission;
+	}
+
+
+	
+	
 	}	
-}
+	
+
