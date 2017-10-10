@@ -1,10 +1,43 @@
-<!DOCTYPE html>
 <html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-jeow
-</body>
+	<head>
+		<script>
+			function test(){
+				var bankinput = document.getElementById("banknaam").value;
+				document.getElementById("buttoninput").innerHTML = banknaam;
+				alert(bankinput);
+          			var xhttp = new XMLHttpRequest();
+  				xhttp.onreadystatechange = function() {
+    					if (this.readyState == 4 && this.status == 200) {
+      						document.getElementById("outputserver").innerHTML = this.responseText;
+    					}
+  				};
+          			xhttp.open("GET", "http://localhost:8080/zwerver");
+				xhttp.setRequestHeader("Content-type", "application/json");
+				xhttp.send();
+			}
+			function verstuur(){
+          			var ent= document.getElementById("banknaam").value;
+				var bank = '{"userName":"'+ent+'"}'; 
+          			var xhttp = new XMLHttpRequest();
+  				xhttp.onreadystatechange = function() {
+    					if (this.readyState == 4 && this.status == 202) {
+      						document.getElementById("outputserver").innerHTML = this.responseText;
+    					}
+  				};
+          			xhttp.open("POST", "http://localhost:8080/zwerverpost", true);
+				xhttp.setRequestHeader("Content-type", "application/json");
+				xhttp.send(bank);
+			}
+		</script>
+	</head>
+	<body>
+		Met deze knop Haal ik een bank op:
+		<button type="button" id="buttoninput" onclick="test()">Ophalen van een Bank via Get</button>
+		<hr>		
+		Via dit invoerscherm en deze knop Post ik een bank, met de naam die ik invoer.
+		<input type="text" id="banknaam" name="FirstName" value="Mickey">
+		<br>
+		<button type="button" id="buttoninput" onclick="verstuur()">Posten van een Bank via Post</button>
+		<div id="outputserver"></div>
+	</body>
 </html>
