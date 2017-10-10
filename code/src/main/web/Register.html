@@ -2,14 +2,18 @@
 <head>
 	<script>
 		function register() {
-			/* var userType = document.getElementById() "userType"'+userType+'", */
+			var userType;
+			if(document.getElementById('Supplier').checked) {
+				userType = document.getElementById("Supplier").value;
+			} else {
+				userType = document.getElementById("Demander").value;
+			}
 			var userName = document.getElementById("userName").value;
 			var password = document.getElementById("password").value;
 			
-			/* var biography = document.getElementById("biography").value; 
-			, "password"'+password+'", "biography"'+biography+'"*/
+			/* var biography = document.getElementById("biography").value; */
 			
-			var newUser= '{"userName":"'+userName+'", "password":"'+password+'"}';
+			var newUser= '{"userName":"'+userName+'", "password":"'+password+'", "userpermission":"'+userType+'"}';
 			
 			var xhttp = new XMLHttpRequest();
 			xhttp.open("POST", "http://localhost:8080/register", true);
@@ -20,8 +24,8 @@
 <body>
 	REGISTER:
 	<form>
-		<input type="radio" name="rate" value="Supplier" checked>Niet-zwerver<br>
-		<input type="radio" name="rate" value="Demander">Zwerver<br>
+		<input type="radio" id="Supplier" name="rate" value="Supplier" checked>Niet-zwerver<br>
+		<input type="radio" id="Demander" name="rate" value="Demander">Zwerver<br>
 	</form>
 	<br>
 	<input type="text" id="userName" placeholder="Username">
