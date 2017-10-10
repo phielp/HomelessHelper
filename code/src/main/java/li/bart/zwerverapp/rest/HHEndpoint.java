@@ -26,9 +26,10 @@ public class HHEndpoint {
 		return user;
 	}
 	
-	@PostMapping("/zwerverpost")
+	@PostMapping("/register")
 	public void postEntity(@RequestBody User user) {
 		System.out.println(user.getUserName());
+		System.out.println(user.getPassword());
 		hhservice.test(user);
 	}
 
