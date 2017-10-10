@@ -1,8 +1,17 @@
 <html>
 <head>
 	<script>
-		function lgin() {
+		function login() {
+			var userName = document.getElementById("userName").value;
+			var password = document.getElementById("password").value;
 			
+			var user = '{"userName":"'+userName+'", "password":"'+password+'"}';
+			
+			var xhttp = new XMLHttpRequest();
+				
+      		xhttp.open("GET", "http://localhost:8080/login");
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.send();
 		}	
 	
 	

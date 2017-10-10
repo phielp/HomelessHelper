@@ -19,17 +19,20 @@ public class HHEndpoint {
 	public String getZwerver() {
 		return "jeow";
 	}
-	@GetMapping("/zwerver2")
-	public User getZwerverTwee() {
-		User user = new User ("arie","geheim", userType.Demander);
+	
+	@GetMapping("/login")
+	public Iterable<User> getLogin() {
+		
+		return hhservice.userList();
+	}
+	
+	@PostMapping("/login")
+	public void postLogin(@RequestBody User user) {
 		hhservice.test(user);
-		return user;
 	}
 	
 	@PostMapping("/register")
-	public void postEntity(@RequestBody User user) {
-		System.out.println(user.getUserName());
-		System.out.println(user.getPassword());
+	public void postRegister(@RequestBody User user) {
 		hhservice.test(user);
 	}
 
