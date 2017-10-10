@@ -13,8 +13,22 @@ public class User {
 	@GeneratedValue
 	private Long id;
 	private String userName, password;
-	private enum userType {Supplier, Demander};
-	private userType userPermission;
+	public enum userType {Supplier, Demander};
+	public userType userpermission;
+	
+	
+	
+	
+	
+	
+
+	public User(String userName, String password, userType userpermission) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.userpermission = userpermission;
+	}
+
 	@OneToMany
 	private List<Demander> demanders;
 	@OneToMany
@@ -26,11 +40,6 @@ public class User {
 	
 	
 
-	public User(String userName, String password) {
-		super();
-		this.userName = userName;
-		this.password = password;
-	}
 
 	public Long getId() {
 		return id;
@@ -56,13 +65,7 @@ public class User {
 		this.password = password;
 	}
 
-	public userType getUserPermission() {
-		return userPermission;
-	}
-
-	public void setUserPermission(userType userPermission) {
-		this.userPermission = userPermission;
-	}
+	
 
 
 	
