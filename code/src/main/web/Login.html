@@ -8,14 +8,25 @@
 			var user = '{"userName":"'+userName+'", "password":"'+password+'"}';
 			
 			var xhttp = new XMLHttpRequest();
-				
+			
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+						var check = this.responseText;
+						loginProceed(check);
+				}
+			};
       		xhttp.open("POST", "http://localhost:8080/login");
 			xhttp.setRequestHeader("Content-type", "application/json");
-			xhttp.send();
-		}	
+			xhttp.send(user);
 	
-	
-	
+		}
+		
+		function loginProceed(check) {
+			if (check) {
+				location.href="Demander.html";
+			}
+		}
+
 	</script>
 
 <body>
@@ -23,7 +34,7 @@
 	<br>
 	<input type="text" id="userName" placeholder="Username">
 	<br>
-	<input type="text" id="password" placeholder="Password">
+	<input type="password" id="password" placeholder="Password">
 	<br>
 	<button type="button" id="loginButton" onclick="login()">Login</button>
 	<button type="button" id="registerButton" onclick=location.href="Register.html" >Register</button>
