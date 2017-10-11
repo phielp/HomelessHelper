@@ -51,9 +51,6 @@ public class HHEndpoint {
 		}
 		return false;
 	}
-	
-	
-
 }
 
 	
