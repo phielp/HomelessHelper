@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import li.bart.zwerverapp.Request;
 import li.bart.zwerverapp.User;
 
 @Service
@@ -12,6 +13,8 @@ public class HHService {
 	
 	@Autowired	
 	HHRepository zwerverrepository;
+	@Autowired
+	RequestRepository requestrepository;
 	
 	
 	public User registerUser(User user) {
@@ -30,6 +33,11 @@ public class HHService {
 				check = true;
 		}
 		return check;
+	}
+	
+	public Request postRequest(Request request) {
+		requestrepository.save(request);
+		return request;
 	}
 }
 
