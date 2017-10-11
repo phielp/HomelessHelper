@@ -1,6 +1,5 @@
 package li.bart.zwerverapp;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,10 +11,9 @@ public class User {
 	@GeneratedValue
 	private Long id;
 	
-	@Column(unique=true)
 	private String userName;
 	private String password;
-	public enum userType {Supplier, Demander};
+	public static enum userType {Supplier, Demander};
 	public userType userpermission;
 	
 	public User() {}
@@ -24,6 +22,14 @@ public class User {
 		super();
 		this.userName = userName;
 		this.password = password;
+		this.userpermission = userpermission;
+	}
+
+	public userType getUserpermission() {
+		return userpermission;
+	}
+
+	public void setUserpermission(userType userpermission) {
 		this.userpermission = userpermission;
 	}
 

@@ -12,7 +12,8 @@
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 					var check = this.responseText;
-					loginProceed(check);
+					var data = JSON.parse(check);
+					loginProceed(data);
 				}
 			};
       		xhttp.open("POST", "http://localhost:8080/login");
@@ -20,11 +21,16 @@
 			xhttp.send(user);
 		}
 		
-		function loginProceed(check) {
-			if (check == 'true') {
-				location.href="Demander.html";
+		function loginProceed(data) {
+			if (data[0] == true){
+				if (data[1] == true) {
+					location.href="Supplier.html";
+				}
+				else location.href="Demander.html";
 			}
-		}
+			else {
+				document.getElementById("inlogfout").innerHTML = "Combination of username and password unknown"}
+			}
 	</script>
 
 <body>
@@ -36,6 +42,7 @@
 	<br>
 	<button type="button" id="loginButton" onclick="login()">Login</button>
 	<button type="button" id="registerButton" onclick=location.href="Register.html" >Register</button>
+	<p id="inlogfout"></p>
 </body>
 </head>
 </html>
