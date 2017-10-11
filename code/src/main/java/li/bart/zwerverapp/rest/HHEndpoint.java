@@ -22,18 +22,19 @@ public class HHEndpoint {
 	
 	@GetMapping("/login")
 	public Iterable<User> getLogin() {
-		
 		return hhservice.userList();
 	}
 	
 	@PostMapping("/login")
-	public void postLogin(@RequestBody User user) {
-		hhservice.test(user);
+	public boolean postLogin(@RequestBody User user) {
+		Iterable<User> users = hhservice.userList();
+		boolean check = hhservice.knownUser(users, user);
+		return check;
 	}
 	
 	@PostMapping("/register")
 	public void postRegister(@RequestBody User user) {
-		hhservice.test(user);
+		hhservice.registerUser(user);
 	}
 
 }

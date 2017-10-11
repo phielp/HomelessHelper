@@ -13,19 +13,14 @@ public class User {
 	public enum userType {Supplier, Demander};
 	public userType userpermission;
 	
-	
-	
-	
 	public User() {}
 	
-
 	public User(String userName, String password, userType userpermission) {
 		super();
 		this.userName = userName;
 		this.password = password;
 		this.userpermission = userpermission;
 	}
-
 
 	public Long getId() {
 		return id;
@@ -50,12 +45,6 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	
-
-
-	
-	
-	}	
+}	
 	
 

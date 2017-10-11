@@ -1,7 +1,5 @@
 package li.bart.zwerverapp.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,13 +14,22 @@ public class HHService {
 	HHRepository zwerverrepository;
 	
 	
-	public User test(User user) {
+	public User registerUser(User user) {
 		zwerverrepository.save(user);
 		return user;
 	}
 	
 	public Iterable<User> userList() {
 		return zwerverrepository.findAll();
+	}
+	
+	public boolean knownUser(Iterable<User> knownUsers, User user) {
+		boolean check = false; 
+		for (User knownUser : knownUsers) {
+			if (knownUser.getUserName().equals(user.getUserName()) && (knownUser.getPassword().equals(user.getPassword())))
+				check = true;
+		}
+		return check;
 	}
 }
 
