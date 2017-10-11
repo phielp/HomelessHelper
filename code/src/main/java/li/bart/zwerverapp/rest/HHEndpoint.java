@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import li.bart.zwerverapp.Request;
 import li.bart.zwerverapp.User;
 import li.bart.zwerverapp.User.userType;
 import li.bart.zwerverapp.service.HHService;
@@ -34,7 +35,10 @@ public class HHEndpoint {
 		return check;
 	}
 	
-	
+	@PostMapping("/createRequest")
+	public void createRequest(@RequestBody Request request) {
+		hhservice.postRequest(request);
+	}
 	
 	
 	@PostMapping("/register")
