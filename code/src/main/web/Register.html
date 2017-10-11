@@ -16,6 +16,11 @@
 			var newUser= '{"userName":"'+userName+'", "password":"'+password+'", "userpermission":"'+userType+'"}';
 			
 			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					
+				}
+			};
 			xhttp.open("POST", "http://localhost:8080/register", true);
 			xhttp.setRequestHeader("Content-type", "application/json");
 			xhttp.send(newUser);
@@ -30,14 +35,14 @@
 	<br>
 	<input type="text" id="userName" placeholder="Username">
 	<br>
-	<input type="text" id="password" placeholder="Password">
+	<input type="password" id="password" placeholder="Password">
 	<br>
 	<form action="/action_page.php">
 		<textarea id="biography" rows="10" cols="30" placeholder="Lifestory"></textarea>
 		<br>
 	</form>
 	
-	<button type="button" id="registerButton" onclick="register()" >Register</button>
+	<button type="button" id="registerButton" onclick="register()">Register</button>
 	
 </body>
 </head>

@@ -11,22 +11,20 @@
 			
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-						var check = this.responseText;
-						loginProceed(check);
+					var check = this.responseText;
+					loginProceed(check);
 				}
 			};
       		xhttp.open("POST", "http://localhost:8080/login");
 			xhttp.setRequestHeader("Content-type", "application/json");
 			xhttp.send(user);
-	
 		}
 		
 		function loginProceed(check) {
-			if (check) {
+			if (check == 'true') {
 				location.href="Demander.html";
 			}
 		}
-
 	</script>
 
 <body>
@@ -38,7 +36,6 @@
 	<br>
 	<button type="button" id="loginButton" onclick="login()">Login</button>
 	<button type="button" id="registerButton" onclick=location.href="Register.html" >Register</button>
-
 </body>
 </head>
 </html>

@@ -33,8 +33,14 @@ public class HHEndpoint {
 	}
 	
 	@PostMapping("/register")
-	public void postRegister(@RequestBody User user) {
-		hhservice.registerUser(user);
+	public boolean postRegister(@RequestBody User user) {
+		Iterable<User> users = hhservice.userList();
+		boolean check = hhservice.knownUser(users, user);
+		if (check == false) {
+			hhservice.registerUser(user);
+			return true;
+		}
+		return false;
 	}
 
 }
