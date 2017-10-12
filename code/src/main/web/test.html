@@ -1,6 +1,7 @@
 <html>
 <head>
 	<script>
+	var image ;
 		function toDataURL(url, callback) {
 			var xhttp = new XMLHttpRequest();
 			xhttp.onload = function() {
@@ -20,7 +21,9 @@
 
 			toDataURL(imgURL, function(dataUrl) {
 				console.log('RESULT:', dataUrl);
+				image = dataUrl;
 			})
+
 		}
 
 		function toImage() {
@@ -29,6 +32,8 @@
 			image.src = imgSRC;
 			document.body.appendChild(image);
 		}
+
+		console.log(image);
 		
 	</script>
 	<body>
