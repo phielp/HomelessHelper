@@ -1,5 +1,7 @@
 package li.bart.zwerverapp.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,18 +28,27 @@ public class HHService {
 		return zwerverrepository.findAll();
 	}
 	
-	public boolean knownUser(Iterable<User> knownUsers, User user) {
-		boolean check = false; 
+	public ArrayList<Boolean> knownUser(Iterable<User> knownUsers, User user) {
+		ArrayList<Boolean> booleanLijst = new ArrayList<Boolean>();
+		boolean check1 = false;
+		boolean check2 = false;
 		for (User knownUser : knownUsers) {
-			if (knownUser.getUserName().equals(user.getUserName()) && (knownUser.getPassword().equals(user.getPassword())))
-				check = true;
+			if (knownUser.getUserName().equals(user.getUserName()) && (knownUser.getPassword().equals(user.getPassword()))) {
+				check1 = true;
+				if (knownUser.getUserpermission().equals(User.userType.Supplier))
+					check2 = true;		
+			}
 		}
-		return check;
+		booleanLijst.add(check1);
+		booleanLijst.add(check2);
+		return booleanLijst;
 	}
 	
+
 	public Request postRequest(Request request) {
 		requestrepository.save(request);
 		return request;
 	}
+
 }
 
