@@ -1,6 +1,7 @@
 <html>
 <head>
 	<script>
+		/* IMG from file */
 		function previewFile() {
 		     var preview = document.querySelector('img');
 		     var file    = document.querySelector('input[type=file]').files[0];
@@ -17,6 +18,37 @@
 		     }
 		}
 		
+		/* Img from url  */
+		function toDataURL(url, callback) {
+			var xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				var reader = new FileReader();
+				reader.onloadend = function() {
+					callback(reader.result);
+				}
+				reader.readAsDataURL(xhttp.response);
+			};
+			xhttp.open('GET', url);
+			xhttp.responseType = 'blob';
+			xhttp.send();
+		}
+
+		function createURL() {
+			var imgURL = document.getElementById("imgURL").value;
+
+			toDataURL(imgURL, function(dataUrl) {
+				console.log('RESULT:', dataUrl)	
+			})
+		}
+		
+		/* base64 to img */
+		function toImage() {
+			var imgSRC = document.getElementById("imgSRC").value;
+			var image = new Image();
+			image.src = imgSRC;
+			document.body.appendChild(image);
+		}
+		
 		function createRequest() {
 			var requestType;
 			if(document.getElementById('Food').checked) {
@@ -29,12 +61,12 @@
 				requestType = document.getElementById("Other").value;
 			}
 			var description = document.getElementById("description").value;
-			var image = document.getElementById("image").value;
+			/* var image = document.getElementById("image").value; */
+			/* var image = createURL(); */
 				
 			var newRequest = '{"inNeedOf":"'+requestType+'", "description":"'+description+'", "photo":"'+image+'"}';
 			
-			window.alert(typeof image);
-			window.alert(image);
+			console.log(image);
 			
 			var xhttp = new XMLHttpRequest();
 			
@@ -61,10 +93,20 @@
 		<br>
 	</form>
 	
+	IMG AS URL:
+	<br>
+	<input type="text" id="imgURL" placeholder="Image URL">
+	<button type="button" onclick="createURL()">Button</button>
+	<br>
+	<input type="text" id="imgSRC" placeholder="Image Base64">
+	<button type="button" onclick="toImage()">Button</button>
+	<br>
+<!--IMG AS FILE:
+ 	<br>
 	<input type="file" id="image" onchange="previewFile()"><br>
-	<img src="" height="200" alt="Image preview...">
-	
-	<button type="button" id="makeRequest" onclick="createRequest()" >Plaats Aanvraag</button>
+	<img src="" height="200" width="200" alt="Image preview...">
+-->
+	<button type="button" id="makeRequest" onclick="createRequest()" >Plaats Aanvraag</button> 
 </body>
 </head>
 </html>
