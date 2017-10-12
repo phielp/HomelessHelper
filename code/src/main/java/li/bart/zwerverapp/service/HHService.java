@@ -28,19 +28,28 @@ public class HHService {
 		return zwerverrepository.findAll();
 	}
 	
-	public ArrayList<Boolean> knownUser(Iterable<User> knownUsers, User user) {
-		ArrayList<Boolean> booleanLijst = new ArrayList<Boolean>();
+	public void deleteRequest(long foo) {
+		requestrepository.delete(foo);
+	}
+	
+	
+	public ArrayList<Object> knownUser(Iterable<User> knownUsers, User user) {
+		ArrayList<Object> booleanLijst = new ArrayList<Object>();
 		boolean check1 = false;
 		boolean check2 = false;
+		long check3 = 0;
 		for (User knownUser : knownUsers) {
 			if (knownUser.getUserName().equals(user.getUserName()) && (knownUser.getPassword().equals(user.getPassword()))) {
 				check1 = true;
 				if (knownUser.getUserpermission().equals(User.userType.Supplier))
-					check2 = true;		
+					check2 = true;
+				if (knownUser.getId().equals(user.getId()))
+					check3 = user.getId();		
 			}
 		}
 		booleanLijst.add(check1);
 		booleanLijst.add(check2);
+		booleanLijst.add(check3);
 		return booleanLijst;
 	}
 	
@@ -48,6 +57,10 @@ public class HHService {
 	public Request postRequest(Request request) {
 		requestrepository.save(request);
 		return request;
+	}
+
+	public Iterable<Request> requestList() {
+		return requestrepository.findAll();
 	}
 
 }

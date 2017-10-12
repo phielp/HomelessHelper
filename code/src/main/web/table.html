@@ -1,0 +1,46 @@
+<html>
+<head>
+	<script>
+	function httpGetAsync()
+	{
+	    var xmlHttp = new XMLHttpRequest();
+	    var obj, dbParam, txt, x = "";
+	    
+	    
+	    obj ={"table":"requests","limit":20};
+	    dbParam = JSON.stringify(obj);
+	    
+	    
+	    
+	    xmlHttp.onreadystatechange = function() { 
+	        if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+	    		myObj = JSON.parse(this.responsetext);
+	        	txt += "<table border='1'>"
+	        	for (x in myObj){
+	        		txt += "<tr><td>" + myObj[x].description + "</td></tr>"
+	        	}
+				txt += "</table>"	        	
+	        	document.getElementById("demo").innerHTML = txt;
+	        	
+// 	        	callback(xmlHttp.responseText);
+	    }
+	    xmlHttp.open("GET", "http://localhost:8080/demander" , true); // true for asynchronous 
+	    xmlhttp
+	    xmlHttp.send("x=" + dbParam);
+	}
+		
+// 	function callback(xmlHttp){
+// 		document.write(xmlHttp);
+// 		var data = JSON.parse(xmlHttp);
+// 		document.write(data);
+// 	}
+	
+	</script>
+
+<body>
+
+	<button type="button" id="requestButton" onclick="httpGetAsync()">Show requests</button>
+
+</body>
+</head>
+</html>

@@ -26,7 +26,12 @@
 				if (data[1] == true) {
 					location.href="Supplier.html";
 				}
-				else location.href="Demander.html";
+				else {
+// 					var id = data[2];
+// 					write.document(id);
+					location.href="Demander.html";
+					
+				}
 			}
 			else {
 				document.getElementById("inlogfout").innerHTML = "Combination of username and password unknown"}

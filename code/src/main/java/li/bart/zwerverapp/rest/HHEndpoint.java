@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import li.bart.zwerverapp.Request;
@@ -29,9 +31,9 @@ public class HHEndpoint {
 	}
 	
 	@PostMapping("/login")
-	public ArrayList<Boolean> postLogin(@RequestBody User user) {
+	public ArrayList<Object> postLogin(@RequestBody User user) {
 		Iterable<User> users = hhservice.userList();
-		ArrayList<Boolean> check = hhservice.knownUser(users, user);
+		ArrayList<Object> check = hhservice.knownUser(users, user);
 		return check;
 	}
 	
@@ -40,12 +42,23 @@ public class HHEndpoint {
 		hhservice.postRequest(request);
 	}
 	
+	@GetMapping("/demander")
+	public Iterable<Request> getRequests() {
+		return hhservice.requestList();
+	}
 	
+	@GetMapping("/demander/{foo}")
+	public void yoyo(@PathVariable long foo) {
+		hhservice.deleteRequest(foo);
+	}
+	
+		
 	@PostMapping("/register")
 	public boolean postRegister(@RequestBody User user) {
 		Iterable<User> users = hhservice.userList();
-		ArrayList<Boolean> check = hhservice.knownUser(users, user);
-		if (check.get(0) == false) {
+		ArrayList<Object> check = hhservice.knownUser(users, user);
+		Boolean a = (Boolean)check.get(0);
+		if (a == false) {
 			hhservice.registerUser(user);
 			return true;
 		}
