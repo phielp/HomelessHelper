@@ -1,5 +1,6 @@
 package li.bart.zwerverapp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,7 +10,11 @@ public class Request {
 	@Id
 	@GeneratedValue
 	private Long id;
-	private String description, photo;
+	
+	@Column(length=200000)
+	private String photo;
+	
+	private String description;
 	private boolean requestSupplier, requestDemander;
 	private enum requestType {FOOD, CLOTHES, OTHER};
 	private requestType inNeedOf;

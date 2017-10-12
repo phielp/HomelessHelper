@@ -1,0 +1,48 @@
+<html>
+<head>
+	<script>
+	var image ;
+		function toDataURL(url, callback) {
+			var xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				var reader = new FileReader();
+				reader.onloadend = function() {
+					callback(reader.result);
+				}
+				reader.readAsDataURL(xhttp.response);
+			};
+			xhttp.open('GET', url);
+			xhttp.responseType = 'blob';
+			xhttp.send();
+		}
+
+		function createURL() {
+			var imgURL = document.getElementById("imgURL").value;
+
+			toDataURL(imgURL, function(dataUrl) {
+				console.log('RESULT:', dataUrl);
+				image = dataUrl;
+			})
+
+		}
+
+		function toImage() {
+			var imgSRC = document.getElementById("imgSRC").value;
+			var image = new Image();
+			image.src = imgSRC;
+			document.body.appendChild(image);
+		}
+
+		console.log(image);
+		
+	</script>
+	<body>
+		<input type="text" id="imgURL" placeholder="Image URL">
+		<button type="button" onclick="createURL()">Button</button>
+		<br>
+		<input type="text" id="imgSRC" placeholder="Image Base64">
+		<button type="button" onclick="toImage()">Button</button>
+	</body>
+</head>
+</html>
+
