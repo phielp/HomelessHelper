@@ -37,7 +37,8 @@
 			var imgURL = document.getElementById("imgURL").value;
 
 			toDataURL(imgURL, function(dataUrl) {
-				console.log('RESULT:', dataUrl)	
+				console.log('RESULT:', dataUrl);
+				createRequest(dataUrl);
 			})
 		}
 		
@@ -49,7 +50,8 @@
 			document.body.appendChild(image);
 		}
 		
-		function createRequest() {
+		function createRequest(dataUrl) {
+			
 			var requestType;
 			if(document.getElementById('Food').checked) {
 				requestType = document.getElementById("Food").value;
@@ -62,11 +64,8 @@
 			}
 			var description = document.getElementById("description").value;
 			/* var image = document.getElementById("image").value; */
-			/* var image = createURL(); */
 				
-			var newRequest = '{"inNeedOf":"'+requestType+'", "description":"'+description+'", "photo":"'+image+'"}';
-			
-			console.log(image);
+			var newRequest = '{"inNeedOf":"'+requestType+'", "description":"'+description+'", "photo":"'+dataUrl+'"}';
 			
 			var xhttp = new XMLHttpRequest();
 			
@@ -106,7 +105,7 @@
 	<input type="file" id="image" onchange="previewFile()"><br>
 	<img src="" height="200" width="200" alt="Image preview...">
 -->
-	<button type="button" id="makeRequest" onclick="createRequest()" >Plaats Aanvraag</button> 
+	<button type="button" id="makeRequest" onclick="createURL()" >Plaats Aanvraag</button> 
 </body>
 </head>
 </html>
