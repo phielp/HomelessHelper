@@ -4,34 +4,62 @@
 <h1>Hello Demander!</h1>
 </head>
 <body>
-<button type="button" id="loginButton" onclick="showRequests()">Show all my existing requests</button>
+	<button type="button" id="createRequestButton" onclick="createRequest()">Create new request</button>
+	<br>
+	<br>
+	<button type="button" id="loginButton" onclick="showRequests()">Show
+		all my existing requests</button>
 
-<p id="demo"></p>
+	<p id="demo"></p>
 
-<script>
-function showRequests(){
-var obj, dbParam, xmlhttp, myObj, x, txt, idNumber ="";
-obj = { "table":"requests", "limit":20 };
-dbParam = JSON.stringify(obj);
-xmlhttp = new XMLHttpRequest();
-xmlhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        myObj = JSON.parse(this.responseText);
-        txt += "<table border='1'>"
-        for (x in myObj) {
-            txt += "<tr><td>" + myObj[x].description +  "</td> <td><button type='button'>remove</button></td> </tr>";
-           // txt += "<button class='editbtn'>edit</button>"
-        }
-        txt += "</table>"        
-        document.getElementById("demo").innerHTML = txt;
-    }
-};
+	<script>
+		function showRequests() {
 
-xmlhttp.open("GET", "http://localhost:8080/demander/" + idNumber);
-xmlhttp.setRequestHeader("Content-type", "application/json");
-xmlhttp.send("x=" + dbParam);
-}
-</script>
+			var obj, dbParam, xmlhttp, myObj, x, txt = "";
+			obj = {
+				"table" : "requests",
+				"limit" : 20
+			};
+			dbParam = JSON.stringify(obj);
+			xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					myObj = JSON.parse(this.responseText);
+					txt += "<table border='1'>"
+					for (x in myObj) {
+						txt += "<tr><td>"
+								+ myObj[x].description
+								+ "</td> <td>"
+								+ myObj[x].id
+								+ "</td> <td><button type='button' onclick='deleteRequest(\""
+								+ myObj[x].id
+								+ "\")' >remove</button></td> </tr>";
+						// txt += "<button class='editbtn'>edit</button>"
+					}
+					txt += "</table>"
+					document.getElementById("demo").innerHTML = txt;
+				}
+
+			};
+			var str = "http://localhost:8080/demander";
+			xmlhttp.open("GET", str);
+			xmlhttp.send();
+		}
+
+		function deleteRequest(myId) {
+			xmlhttp = new XMLHttpRequest();
+			var str = "http://localhost:8080/demander/" + myId;
+			xmlhttp.open("DELETE", str);
+			xmlhttp.send();
+			xmlhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					showRequests();
+				}
+			};
+		}
+
+		
+	</script>
 
 </body>
 </html>
