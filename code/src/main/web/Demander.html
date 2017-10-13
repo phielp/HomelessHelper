@@ -31,9 +31,7 @@
 								+ myObj[x].description
 								+ "</td> <td>"
 								+ myObj[x].id
-								+ "</td><td>"
-								+ toImage(myObj[x].photo)
-								
+								+ "</td><td> <img src='"+myObj[x].photo+"' style='width:100px;height:100px;' />"	
 								+ "</td><td><button type='button' onclick='deleteRequest(\""
 								+ myObj[x].id
 								+ "\")' >remove</button></td> </tr>";
@@ -60,14 +58,7 @@
 				}
 			};
 		}
-		/* base64 to img */
-		function toImage(imgSRC) {
-			/* var imgSRC = document.getElementById("imgSRC").value; */
-			var image = new Image();
-			image.src = imgSRC;
-			document.body.appendChild(image);
-		}
 	</script>
-
+	
 </body>
 </html>
