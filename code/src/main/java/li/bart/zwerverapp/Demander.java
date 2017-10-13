@@ -19,7 +19,7 @@ public class Demander extends User {
 	private String locationGPS;
 	
 	@OneToMany
-	private List<Request> requests;
+	private List<Request> requestsGP;
 	
 	public Demander() {
 	}
