@@ -1,0 +1,63 @@
+<html>
+<head>
+
+
+</head>
+<body onload="myMap({lat: 52, lng: 5})">
+	<input type="text" id="lat" placeholder=Latitude>
+	<input type="text" id="address" placeholder=Address>
+	<br>
+	<input type="text" id="lng" placeholder=Longitude>
+	<br>
+	<button type="button" id="pinPoint" onclick="myMap2()">Pinpoint</button>
+	<button type="button" id="pinPoint2" onclick="myMap3()">Pinpoint2</button>
+	<br>
+	<div id="map" style="width:400px;height:400px;background:tomato" class=mapStyle>
+	</div>
+		<script>
+		
+		function myMap2() {
+			var latitude = parseFloat(document.getElementById("lat").value);
+			var longitude = parseFloat(document.getElementById("lng").value);
+			var location = {lat: latitude, lng: longitude};
+			myMap(location);
+		}
+		
+		function myMap(location)	 {
+			var mapOptions = {
+				center: location,
+				zoom: 10,
+				mapTypeId: google.maps.MapTypeId.HYBRID
+			}
+			var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+			var marker = new google.maps.Marker({
+				position: location,
+				map: map
+			})
+			var geocoder = new google.maps.Geocoder();
+			document.getElementById('pinPoint2').addEventListener('click', function() {
+				geocodeAddress(geocoder, map);
+			});
+		}
+		
+		function geocodeAddress(geocoder, resultsMap) {
+	        var address = document.getElementById('address').value;
+	        geocoder.geocode({'address': address}, function(results, status) {
+	          if (status === 'OK') {
+	            resultsMap.setCenter(results[0].geometry.location);
+	            var marker = new google.maps.Marker({
+	              map: resultsMap,
+	              position: results[0].geometry.location
+	            });
+	          } else {
+	            alert('Geocode was not successful for the following reason: ' + status);
+	          }
+	        });
+	      }
+	</script>
+	
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4Kc240y7EnXNjfoKwXu-D4-HoelP_fU&callback=myMap">
+	</script>
+</body>
+</html>
