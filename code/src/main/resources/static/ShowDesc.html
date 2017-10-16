@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+yo man 
+<button type="button" id="showRequest" onclick="showSingleRequest(myId)">Show the request</button>
+
+<script>
+function showSingleRequest(myId) {
+	xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var check = this.responseText;
+			var data = JSON.parse(check);
+		 	document.write(data.id);
+		 	document.write(data.description);
+		}
+	};	
+	var str = "http://localhost:8080/demander/" + myId;
+	xmlhttp.open("GET", str);
+	xmlhttp.send();
+	
+}
+</script>
+</body>
+</html>

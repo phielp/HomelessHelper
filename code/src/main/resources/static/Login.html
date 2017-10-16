@@ -13,7 +13,7 @@
 				if (this.readyState == 4 && this.status == 200) {
 					var check = this.responseText;
 					var data = JSON.parse(check);
-					loginProceed(data);
+					loginProceed(data);	
 				}
 			};
       		xhttp.open("POST", "http://localhost:8080/login");
@@ -23,19 +23,27 @@
 		
 		function loginProceed(data) {
 			if (data[0] == true){
+				
+				/* createCookie(userName, data[2]); */
+				setCookie("userID", data[2], 365);
+				
 				if (data[1] == true) {
 					location.href="Supplier.html";
 				}
 				else {
-// 					var id = data[2];
-// 					write.document(id);
-					location.href="Demander.html";
-					
+					location.href="Demander.html";	
 				}
 			}
 			else {
 				document.getElementById("inlogfout").innerHTML = "Combination of username and password unknown"}
 			}
+		
+		function setCookie(cname, cvalue, exdays) {
+		    var d = new Date();
+		    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+		    var expires = "expires="+ d.toUTCString();
+		    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		}
 	</script>
 
 <body>
@@ -48,6 +56,8 @@
 	<button type="button" id="loginButton" onclick="login()">Login</button>
 	<button type="button" id="registerButton" onclick=location.href="Register.html" >Register</button>
 	<p id="inlogfout"></p>
+	<br>
+	<button type="button" id="buttoninput" onclick="test()">creeer een cookie</button>
 </body>
 </head>
 </html>

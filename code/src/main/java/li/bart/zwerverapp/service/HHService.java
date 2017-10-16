@@ -32,19 +32,23 @@ public class HHService {
 		requestrepository.delete(foo);
 	}
 	
+	public Request showSingleRequest(long foo) {
+		Request request = requestrepository.findOne(foo);
+		return request;
+	}
+	
 	
 	public ArrayList<Object> knownUser(Iterable<User> knownUsers, User user) {
 		ArrayList<Object> booleanLijst = new ArrayList<Object>();
 		boolean check1 = false;
 		boolean check2 = false;
-		long check3 = 0;
+		long check3 = 0L;
 		for (User knownUser : knownUsers) {
 			if (knownUser.getUserName().equals(user.getUserName()) && (knownUser.getPassword().equals(user.getPassword()))) {
 				check1 = true;
+				check3 = knownUser.getId();
 				if (knownUser.getUserpermission().equals(User.userType.Supplier))
-					check2 = true;
-				if (knownUser.getId().equals(user.getId()))
-					check3 = user.getId();		
+					check2 = true;	
 			}
 		}
 		booleanLijst.add(check1);

@@ -3,8 +3,8 @@
 <head>
 <h1>Hello Demander!</h1>
 </head>
-<body>
-	<button type="button" id="createRequestButton" onclick="createRequest()">Create new request</button>
+<body onload=getCookie("userID")>
+	<button type="button" id="createRequestButton" onclick=location.href="CreateRequest.html">Create new request</button>
 	<br>
 	<br>
 	<button type="button" id="loginButton" onclick="showRequests()">Show
@@ -28,12 +28,15 @@
 					txt += "<table border='1'>"
 					for (x in myObj) {
 						txt += "<tr><td>"
-								+ myObj[x].description
+								+ myObj[x].requestTitle
 								+ "</td> <td>"
 								+ myObj[x].id
-								+ "</td> <td><button type='button' onclick='deleteRequest(\""
+								+ "</td><td> <img src='"+myObj[x].photo+"' style='width:100px;height:100px;' />"	
+								+ "</td>"
+								+ "<td><button type='button' onclick='goToRequestDesc(\""+myObj[x].id+"\", \""+myObj[x].description+"\" )'>Show description</td>"
+								+"<td><button type='button' onclick='deleteRequest(\""
 								+ myObj[x].id
-								+ "\")' >remove</button></td> </tr>";
+								+ "\")' >remove entry</button></td> </tr>";
 						// txt += "<button class='editbtn'>edit</button>"
 					}
 					txt += "</table>"
@@ -45,7 +48,10 @@
 			xmlhttp.open("GET", str);
 			xmlhttp.send();
 		}
-
+		function goToRequestDesc(myId, description){
+			document.write(description);
+		};
+		
 		function deleteRequest(myId) {
 			xmlhttp = new XMLHttpRequest();
 			var str = "http://localhost:8080/demander/" + myId;
@@ -57,9 +63,23 @@
 				}
 			};
 		}
-
 		
+		function getCookie(cname) {
+		    var name = cname + "=";
+		    var decodedCookie = decodeURIComponent(document.cookie);
+		    var ca = decodedCookie.split(';');
+		    for(var i = 0; i <ca.length; i++) {
+		        var c = ca[i];
+		        while (c.charAt(0) == ' ') {
+		            c = c.substring(1);
+		        }
+		        if (c.indexOf(name) == 0) {
+		            return c.substring(name.length, c.length);
+		        }
+		    }
+		    return "";
+		}
 	</script>
-
+	
 </body>
 </html>
