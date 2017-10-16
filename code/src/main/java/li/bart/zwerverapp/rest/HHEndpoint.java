@@ -53,6 +53,13 @@ public class HHEndpoint {
 		hhservice.deleteRequest(foo);
 	}
 	
+	@GetMapping("/demander/{foo}")
+	public Request heyo(@PathVariable long foo) {
+		Request request = hhservice.showSingleRequest(foo);
+		return request;
+		
+		
+	}
 		
 	@PostMapping("/register")
 	public boolean postRegister(@RequestBody User user) {

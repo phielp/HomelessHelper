@@ -64,9 +64,11 @@
 			}
 			var description = document.getElementById("description").value;
 			/* var image = document.getElementById("image").value; */
-				
-			var newRequest = '{"inNeedOf":"'+requestType+'", "description":"'+description+'", "photo":"'+dataUrl+'"}';
 			
+			var requestTitle = document.getElementById("requestTitle").value;
+						
+			var newRequest = '{"inNeedOf":"'+requestType+'", "requestTitle":"'+requestTitle+'", "description":"'+description+'", "photo":"'+dataUrl+'"}';
+			console.log(newRequest);
 			var xhttp = new XMLHttpRequest();
 			
 			xhttp.onreadystatechange = function() {
@@ -80,17 +82,23 @@
 		}
 	</script>
 <body>
+
 	CREATE REQUEST:
 	<form>
 		<input type="radio" id="Food" name="rate" value="FOOD" checked>VOEDSEL<br>
 		<input type="radio" id="Clothes" name="rate" value="CLOTHES">KLEDING<br>
 		<input type="radio" id="Other" name="rate" value="OTHER">OVERIG<br>
 	</form>
-	<br>
+		<form>
+		Title of request: <input type="text" id="requestTitle">
+	</form>
+
 	<form action="/action_page.php">
-		<textarea id="description" rows="10" cols="30" placeholder="Omschrijving benodigheden"></textarea>
+		<textarea id="description" rows="10" cols="30" placeholder="Description of request"></textarea>
 		<br>
 	</form>
+
+	
 	
 	IMG AS URL:
 	<br>
@@ -106,6 +114,7 @@
 	<img src="" height="200" width="200" alt="Image preview...">
 -->
 	<button type="button" id="makeRequest" onclick="createURL()" >Plaats Aanvraag</button> 
+	<button type="button" id="registerButton" onclick=location.href="Demander.html" >Terug naar mijn requests</button>
 </body>
 </head>
 </html>

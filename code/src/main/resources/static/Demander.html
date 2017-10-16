@@ -28,13 +28,15 @@
 					txt += "<table border='1'>"
 					for (x in myObj) {
 						txt += "<tr><td>"
-								+ myObj[x].description
+								+ myObj[x].requestTitle
 								+ "</td> <td>"
 								+ myObj[x].id
 								+ "</td><td> <img src='"+myObj[x].photo+"' style='width:100px;height:100px;' />"	
-								+ "</td><td><button type='button' onclick='deleteRequest(\""
+								+ "</td>"
+								+ "<td><button type='button' onclick='goToRequestDesc(\""+myObj[x].id+"\", \""+myObj[x].description+"\" )'>Show description</td>"
+								+"<td><button type='button' onclick='deleteRequest(\""
 								+ myObj[x].id
-								+ "\")' >remove</button></td> </tr>";
+								+ "\")' >remove entry</button></td> </tr>";
 						// txt += "<button class='editbtn'>edit</button>"
 					}
 					txt += "</table>"
@@ -46,7 +48,10 @@
 			xmlhttp.open("GET", str);
 			xmlhttp.send();
 		}
-
+		function goToRequestDesc(myId, description){
+			document.write(description);
+		};
+		
 		function deleteRequest(myId) {
 			xmlhttp = new XMLHttpRequest();
 			var str = "http://localhost:8080/demander/" + myId;

@@ -32,6 +32,11 @@ public class HHService {
 		requestrepository.delete(foo);
 	}
 	
+	public Request showSingleRequest(long foo) {
+		Request request = requestrepository.findOne(foo);
+		return request;
+	}
+	
 	
 	public ArrayList<Object> knownUser(Iterable<User> knownUsers, User user) {
 		ArrayList<Object> booleanLijst = new ArrayList<Object>();

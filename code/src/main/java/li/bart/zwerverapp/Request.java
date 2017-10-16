@@ -15,6 +15,7 @@ public class Request {
 	private String photo;
 	
 	private String description;
+	private String requestTitle;
 	private boolean requestSupplier, requestDemander;
 	private enum requestType {FOOD, CLOTHES, OTHER};
 	private requestType inNeedOf;
@@ -54,5 +55,11 @@ public class Request {
 	}
 	public void setInNeedOf(requestType inNeedOf) {
 		this.inNeedOf = inNeedOf;
+	}
+	public String getRequestTitle() {
+		return requestTitle;
+	}
+	public void setRequestTitle(String requestTitle) {
+		this.requestTitle = requestTitle;
 	}
 }
