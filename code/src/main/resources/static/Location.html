@@ -1,18 +1,17 @@
 <html>
 <head>
-
-
 </head>
-<body onload="myMap({lat: 52, lng: 5})">
+<body onload="myMap({lat: 52.5092841, lng: 6.064451299999973})">
 	<input type="text" id="lat" placeholder=Latitude>
 	<input type="text" id="address" placeholder=Address>
 	<br>
 	<input type="text" id="lng" placeholder=Longitude>
 	<br>
 	<button type="button" id="pinPoint" onclick="myMap2()">Pinpoint</button>
-	<button type="button" id="pinPoint2" onclick="myMap3()">Pinpoint2</button>
+	&emsp;&emsp;&emsp;&emsp;&emsp;
+	<button type="button" id="pinPoint2">Pinpoint2</button>
 	<br>
-	<div id="map" style="width:400px;height:400px;background:tomato" class=mapStyle>
+	<div id="map" style="width:500px;height:500px;background:tomato" class=mapStyle>
 	</div>
 		<script>
 		
@@ -26,7 +25,7 @@
 		function myMap(location)	 {
 			var mapOptions = {
 				center: location,
-				zoom: 10,
+				zoom: 15,
 				mapTypeId: google.maps.MapTypeId.HYBRID
 			}
 			var map = new google.maps.Map(document.getElementById("map"), mapOptions);
@@ -41,19 +40,22 @@
 		}
 		
 		function geocodeAddress(geocoder, resultsMap) {
-	        var address = document.getElementById('address').value;
-	        geocoder.geocode({'address': address}, function(results, status) {
-	          if (status === 'OK') {
-	            resultsMap.setCenter(results[0].geometry.location);
-	            var marker = new google.maps.Marker({
-	              map: resultsMap,
-	              position: results[0].geometry.location
-	            });
-	          } else {
-	            alert('Geocode was not successful for the following reason: ' + status);
-	          }
-	        });
-	      }
+			var address = document.getElementById('address').value;
+			geocoder.geocode({'address': address}, function(results, status) {
+				if (status === 'OK') {
+					resultsMap.setCenter(results[0].geometry.location);
+					var marker = new google.maps.Marker({
+						map: resultsMap,
+						position: results[0].geometry.location
+					});
+					var latFinal = marker.getPosition().lat();
+					var lngFinal = marker.getPosition().lng();
+					console.log(latFinal + ", " + lngFinal);
+				} else {
+					alert('Geocode was not successful for the following reason: ' + status);
+				}
+			});
+		}
 	</script>
 	
 	<script
