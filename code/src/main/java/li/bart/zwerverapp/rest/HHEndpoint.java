@@ -53,7 +53,6 @@ public class HHEndpoint {
 		hhservice.deleteRequest(foo);
 	}
 	
-		
 	@PostMapping("/register")
 	public boolean postRegister(@RequestBody User user) {
 		Iterable<User> users = hhservice.userList();
