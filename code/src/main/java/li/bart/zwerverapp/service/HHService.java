@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import li.bart.zwerverapp.Demander;
 import li.bart.zwerverapp.Request;
 import li.bart.zwerverapp.User;
 
@@ -14,9 +15,11 @@ import li.bart.zwerverapp.User;
 public class HHService {
 	
 	@Autowired	
-	HHRepository zwerverrepository;
+	private HHRepository zwerverrepository;
 	@Autowired
-	RequestRepository requestrepository;
+	private RequestRepository requestrepository;
+	@Autowired
+	private DemanderRepository demanderrepository;
 	
 	
 	public User registerUser(User user) {
@@ -28,12 +31,12 @@ public class HHService {
 		return zwerverrepository.findAll();
 	}
 	
-	public void deleteRequest(long foo) {
-		requestrepository.delete(foo);
+	public void deleteRequest(long requestId) {
+		requestrepository.delete(requestId);
 	}
 	
-	public Request showSingleRequest(long foo) {
-		Request request = requestrepository.findOne(foo);
+	public Request showSingleRequest(long requestId) {
+		Request request = requestrepository.findOne(requestId);
 		return request;
 	}
 	
@@ -66,6 +69,13 @@ public class HHService {
 	public Iterable<Request> requestList() {
 		return requestrepository.findAll();
 	}
-
+	
+//	public User getUser(Long userId) {
+//		return zwerverrepository.findOne(userId);
+//	}
+	
+	public User getDemander(Long userId) {
+		return demanderrepository.findOne(userId);
+	}
 }
 

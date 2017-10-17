@@ -3,14 +3,16 @@ package li.bart.zwerverapp;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
 
 @Entity
-
+@Inheritance
 public class User {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+	private Float latitude;
+	private Float longitude;
 	private String userName;
 	private String password;
 	public static enum userType {Supplier, Demander};
@@ -23,6 +25,22 @@ public class User {
 		this.userName = userName;
 		this.password = password;
 		this.userpermission = userpermission;
+	}
+
+	public Float getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Float latitude) {
+		this.latitude = latitude;
+	}
+
+	public Float getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Float longitude) {
+		this.longitude = longitude;
 	}
 
 	public userType getUserpermission() {

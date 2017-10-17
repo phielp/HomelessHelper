@@ -16,11 +16,24 @@ public class Demander extends User {
 	private String photoURL;
 	private String description;
 	private int numberOfRequests;
-	private String locationGPS;
+	private Float latitude;
+	private Float longitude;
 	
 	@OneToMany
 	private List<Request> requests;
 	
+	public Float getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(Float latitude) {
+		this.latitude = latitude;
+	}
+	public Float getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(Float longitude) {
+		this.longitude = longitude;
+	}
 	public Demander() {
 	}
 	public String getName() {
@@ -53,14 +66,6 @@ public class Demander extends User {
 
 	public void setNumberOfRequests(int numberOfRequests) {
 		this.numberOfRequests = numberOfRequests;
-	}
-
-	public String getLocationGPS() {
-		return locationGPS;
-	}
-
-	public void setLocationGPS(String locationGPS) {
-		this.locationGPS = locationGPS;
 	}
 
 }
