@@ -19,7 +19,14 @@ public class Request {
 	private boolean requestSupplier, requestDemander;
 	private enum requestType {FOOD, CLOTHES, OTHER};
 	private requestType inNeedOf;
+	private Long createdBy;
 	
+	public Long getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(Long createdBy) {
+		this.createdBy = createdBy;
+	}
 	public Long getId() {
 		return id;
 	}
