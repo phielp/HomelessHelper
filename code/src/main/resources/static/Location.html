@@ -1,28 +1,28 @@
 <html>
 <head>
 </head>
-<body onload="myMap({lat: 52.5092841, lng: 6.064451299999973})">
+<body onload="createMap({lat: 52.5092841, lng: 6.064451299999973})">
 	<input type="text" id="lat" placeholder=Latitude>
 	<input type="text" id="address" placeholder=Address>
 	<br>
 	<input type="text" id="lng" placeholder=Longitude>
 	<br>
-	<button type="button" id="pinPoint" onclick="myMap2()">Pinpoint</button>
-	&emsp;&emsp;&emsp;&emsp;&emsp;
-	<button type="button" id="pinPoint2">Pinpoint2</button>
+	<button type="button" id="pinPoint" onclick="initMap()">Coordinates</button>
+	&emsp;&emsp;&emsp;&emsp;
+	<button type="button" id="pinPoint2">Address</button>
 	<br>
 	<div id="map" style="width:500px;height:500px;background:tomato" class=mapStyle>
 	</div>
 		<script>
 		
-		function myMap2() {
+		function initMap() {
 			var latitude = parseFloat(document.getElementById("lat").value);
 			var longitude = parseFloat(document.getElementById("lng").value);
 			var location = {lat: latitude, lng: longitude};
-			myMap(location);
+			createMap(location);
 		}
 		
-		function myMap(location)	 {
+		function createMap(location)	 {
 			var mapOptions = {
 				center: location,
 				zoom: 15,
@@ -59,7 +59,7 @@
 	</script>
 	
 	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4Kc240y7EnXNjfoKwXu-D4-HoelP_fU&callback=myMap">
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4Kc240y7EnXNjfoKwXu-D4-HoelP_fU&callback=createMap">
 	</script>
 </body>
 </html>
