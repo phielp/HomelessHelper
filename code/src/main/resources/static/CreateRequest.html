@@ -1,5 +1,6 @@
 <html>
 <head>
+	<script src="getCookie.js"></script>
 	<script>
 		/* IMG from file */
 		function previewFile() {
@@ -66,8 +67,10 @@
 			/* var image = document.getElementById("image").value; */
 			
 			var requestTitle = document.getElementById("requestTitle").value;
+			
+			var createdBy = getCookie("userID");
 						
-			var newRequest = '{"inNeedOf":"'+requestType+'", "requestTitle":"'+requestTitle+'", "description":"'+description+'", "photo":"'+dataUrl+'"}';
+			var newRequest = '{"inNeedOf":"'+requestType+'", "requestTitle":"'+requestTitle+'", "description":"'+description+'","createdBy":"'+createdBy+'", "photo":"'+dataUrl+'"}';
 			console.log(newRequest);
 			var xhttp = new XMLHttpRequest();
 			
@@ -113,6 +116,8 @@
 	<input type="file" id="image" onchange="previewFile()"><br>
 	<img src="" height="200" width="200" alt="Image preview...">
 -->
+	
+	
 	<button type="button" id="makeRequest" onclick="createURL()" >Plaats Aanvraag</button> 
 	<button type="button" id="registerButton" onclick=location.href="Demander.html" >Terug naar mijn requests</button>
 </body>

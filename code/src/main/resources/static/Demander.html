@@ -3,18 +3,19 @@
 <head>
 <h1>Hello Demander!</h1>
 </head>
-<body onload=getCookie("userID")>
-	<button type="button" id="createRequestButton" onclick=location.href="CreateRequest.html">Create new request</button>
+<body onload=getCookie( "userID")>
+	<button type="button" id="createRequestButton" onclick=location.href="CreateRequest.html">Create
+		new request</button>
 	<br>
 	<br>
 	<button type="button" id="loginButton" onclick="showRequests()">Show
 		all my existing requests</button>
 
 	<p id="demo"></p>
-
+	
+	<script src="getCookie.js"></script>
 	<script>
 		function showRequests() {
-
 			var obj, dbParam, xmlhttp, myObj, x, txt = "";
 			obj = {
 				"table" : "requests",
@@ -33,11 +34,12 @@
 								+ myObj[x].id
 								+ "</td><td> <img src='"+myObj[x].photo+"' style='width:100px;height:100px;' />"	
 								+ "</td>"
-								+ "<td><button type='button' onclick='goToRequestDesc(\""+myObj[x].id+"\", \""+myObj[x].description+"\" )'>Show description</td>"
-								+"<td><button type='button' onclick='deleteRequest(\""
+								+ "<td><button type='button' onclick='goToRequestDesc(\""
+								+ myObj[x].id+"\", \""
+								+ myObj[x].description+"\" )'>Show description</td>"
+								+ "<td><button type='button' onclick='deleteRequest(\""
 								+ myObj[x].id
 								+ "\")' >remove entry</button></td> </tr>";
-						// txt += "<button class='editbtn'>edit</button>"
 					}
 					txt += "</table>"
 					document.getElementById("demo").innerHTML = txt;
@@ -64,22 +66,9 @@
 			};
 		}
 		
-		function getCookie(cname) {
-		    var name = cname + "=";
-		    var decodedCookie = decodeURIComponent(document.cookie);
-		    var ca = decodedCookie.split(';');
-		    for(var i = 0; i <ca.length; i++) {
-		        var c = ca[i];
-		        while (c.charAt(0) == ' ') {
-		            c = c.substring(1);
-		        }
-		        if (c.indexOf(name) == 0) {
-		            return c.substring(name.length, c.length);
-		        }
-		    }
-		    return "";
-		}
+		
+		
 	</script>
-	
+
 </body>
 </html>
