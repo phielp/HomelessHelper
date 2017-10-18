@@ -19,6 +19,7 @@ import li.bart.zwerverapp.User.userType;
 import li.bart.zwerverapp.service.DemanderRepository;
 import li.bart.zwerverapp.service.HHRepository;
 import li.bart.zwerverapp.service.HHService;
+import li.bart.zwerverapp.service.RequestRepository;
 
 @RestController
 public class HHEndpoint {
@@ -28,6 +29,8 @@ public class HHEndpoint {
 	private HHRepository hhrepository;
 	@Autowired
 	private DemanderRepository demanderrepository;
+	@Autowired
+	private RequestRepository requestrepository;
 
 	
 	@GetMapping ("/zwerver")
@@ -52,17 +55,27 @@ public class HHEndpoint {
 		hhservice.postRequest(request);
 	}
 	
-	@GetMapping("/demander")
+	@GetMapping("/supplier")
 	public Iterable<Request> getRequests() {
 		return hhservice.requestList();
+	}
+	
+	@GetMapping("/demander/{userId}")
+	public Iterable<Request> getAllMyRequests(@PathVariable long userId) {
+		return requestrepository.getMyRequests(userId);
 	}
 	
 	@DeleteMapping("/demander/{foo}")
 	public void yoyo(@PathVariable long foo) {
 		hhservice.deleteRequest(foo);
 	}
+	
+	@DeleteMapping("/supplier/{foo}")
+	public void yoyo2(@PathVariable long foo) {
+		hhservice.deleteRequest(foo);
+	}
 
-	@GetMapping("/demander/{foo}")
+	@GetMapping("/singledemander/{foo}")
 	public Request heyo(@PathVariable long foo) {
 		Request request = hhservice.showSingleRequest(foo);
 		return request;

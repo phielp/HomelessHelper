@@ -8,14 +8,13 @@
 		new request</button>
 	<br>
 	<br>
-	<button type="button" id="loginButton" onclick="showRequests()">Show
-		all my existing requests</button>
+	<button type="button" id="loginButton" onclick="showRequests(getCookie('userID'))">Show all my existing requests</button>
 
 	<p id="demo"></p>
 	
 	<script src="getCookie.js"></script>
 	<script>
-		function showRequests() {
+		function showRequests(myId) {
 			var obj, dbParam, xmlhttp, myObj, x, txt = "";
 			obj = {
 				"table" : "requests",
@@ -27,16 +26,18 @@
 				if (this.readyState == 4 && this.status == 200) {
 					myObj = JSON.parse(this.responseText);
 					txt += "<table border='1'>"
+					txt += "<tr><td><b>Titel<b></td><td><b>Plaatje<b></td>"
 					for (x in myObj) {
 						txt += "<tr><td>"
 								+ myObj[x].requestTitle
-								+ "</td> <td>"
-								+ myObj[x].id
 								+ "</td><td> <img src='"+myObj[x].photo+"' style='width:100px;height:100px;' />"	
 								+ "</td>"
 								+ "<td><button type='button' onclick='goToRequestDesc(\""
 								+ myObj[x].id+"\", \""
 								+ myObj[x].description+"\" )'>Show description</td>"
+								+ "<td><p id=innerdescription"
+								+ myObj[x].id
+								+ "></p></td>"
 								+ "<td><button type='button' onclick='deleteRequest(\""
 								+ myObj[x].id
 								+ "\")' >remove entry</button></td> </tr>";
@@ -46,12 +47,12 @@
 				}
 
 			};
-			var str = "http://localhost:8080/demander";
+			var str = "http://localhost:8080/demander/" + myId;
 			xmlhttp.open("GET", str);
 			xmlhttp.send();
 		}
 		function goToRequestDesc(myId, description){
-			document.write(description);
+			document.getElementById("innerdescription" + myId).innerHTML = description;
 		};
 		
 		function deleteRequest(myId) {

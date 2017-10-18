@@ -9,27 +9,47 @@
 <p id="demo"></p>
 
 <script>
-function showRequests(){
-var obj, dbParam, xmlhttp, myObj, x, txt = "";
-obj = { "table":"requests", "limit":20 };
-dbParam = JSON.stringify(obj);
-xmlhttp = new XMLHttpRequest();
-xmlhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        myObj = JSON.parse(this.responseText);
-        txt += "<table border='1'>"
-        for (x in myObj) {
-            txt += "<tr><td>" + myObj[x].description + "</td></tr>";
-        }
-        txt += "</table>"        
-        document.getElementById("demo").innerHTML = txt;
-    }
+
+function showRequests() {
+	var obj, dbParam, xmlhttp, myObj, x, txt = "";
+	obj = {
+		"table" : "requests",
+		"limit" : 20
+	};
+	dbParam = JSON.stringify(obj);
+	xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			myObj = JSON.parse(this.responseText);
+			txt += "<table border='1'>"
+			txt += "<tr><td><b>Titel<b></td><td><b>Plaatje<b></td>"
+			for (x in myObj) {
+				txt += "<tr><td>"
+						+ myObj[x].requestTitle
+						+ "</td> <td> <img src='"+myObj[x].photo+"' style='width:100px;height:100px;' />"	
+						+ "</td>"
+						+ "<td><button type='button' onclick='goToRequestDesc(\""
+						+ myObj[x].id+"\", \""
+						+ myObj[x].description+"\" )'>Show description</td>"
+						+ "<td><p id=innerdescription"
+						+ myObj[x].id
+						+ "></p></td>";
+			}
+			txt += "</table>"
+			document.getElementById("demo").innerHTML = txt;
+		}
 };
-xmlhttp.open("GET", "http://localhost:8080/demander");
+xmlhttp.open("GET", "http://localhost:8080/supplier");
 xmlhttp.setRequestHeader("Content-type", "application/json");
 xmlhttp.send("x=" + dbParam);
 }
-</script>
 
+function goToRequestDesc(myId, description){
+	document.getElementById("innerdescription" + myId).innerHTML = description;
+};
+
+function getName(getCookie(""))
+</script>
+<script src="getCookie.js"></script>
 </body>
 </html>
