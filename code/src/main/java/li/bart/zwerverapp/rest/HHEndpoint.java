@@ -103,11 +103,7 @@ public class HHEndpoint {
 	
 	@PostMapping("/getlocation")
 	public Float[] getLocation(@RequestBody User user) {
-		System.out.println(user.getId());
-		
 		User demander = hhservice.getDemander(user.getId());
-		System.out.println(demander);
-
 		Float[] location = new Float[2];
 		location[0] = demander.getLatitude();
 		location[1] = demander.getLongitude();
