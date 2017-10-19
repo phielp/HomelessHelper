@@ -40,6 +40,7 @@
 			toDataURL(imgURL, function(dataUrl) {
 				console.log('RESULT:', dataUrl);
 				createRequest(dataUrl);
+				backToDemander();
 			})
 		}
 		
@@ -82,6 +83,9 @@
       		xhttp.open("POST", "http://localhost:8080/createRequest");
 			xhttp.setRequestHeader("Content-type", "application/json");
 			xhttp.send(newRequest);
+		}
+		function backToDemander(){
+			location.href="Demander.html";
 		}
 	</script>
 <body>

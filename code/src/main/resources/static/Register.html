@@ -24,6 +24,11 @@
 			xhttp.open("POST", "http://localhost:8080/register", true);
 			xhttp.setRequestHeader("Content-type", "application/json");
 			xhttp.send(newUser);
+			backToLogin();
+		}
+		
+		function backToLogin(){
+			location.href="Login.html";
 		}
 	</script>
 <body>
