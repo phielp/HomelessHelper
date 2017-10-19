@@ -5,9 +5,8 @@
 </head>
 <body>
 <button type="button" id="loginButton" onclick="showRequests()">Show all existing requests</button>
-
 <p id="demo"></p>
-
+<button type="button" id="demonstratieLocatie" onclick=location.href='Location.html'>Demonstreer de prachtige locatie-functionaliteit!</button>
 <script>
 
 function showRequests() {
@@ -21,19 +20,21 @@ function showRequests() {
 	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			myObj = JSON.parse(this.responseText);
+			//alert(myObj.length);
 			txt += "<table border='1'>"
-			txt += "<tr><td><b>Titel<b></td><td><b>Plaatje<b></td>"
+			txt += "<tr><td><b>Titel<b></td><td><b>Plaatje<b></td><td></td><td></td><td><b>Vrager<b></td>"
 			for (x in myObj) {
 				txt += "<tr><td>"
-						+ myObj[x].requestTitle
-						+ "</td> <td> <img src='"+myObj[x].photo+"' style='width:100px;height:100px;' />"	
-						+ "</td>"
-						+ "<td><button type='button' onclick='goToRequestDesc(\""
-						+ myObj[x].id+"\", \""
-						+ myObj[x].description+"\" )'>Show description</td>"
+						+ myObj[x][2] 
+						+ "</td> <td> <img src='"+myObj[x][4]+"' style='width:100px;height:100px;' />"	
+						+ "</td><td><button type='button' onclick='goToRequestDesc(\""
+						+ myObj[x][3]+"\", \""
+						+ myObj[x][1]+"\" )'>Show description</td>"
 						+ "<td><p id=innerdescription"
-						+ myObj[x].id
-						+ "></p></td>";
+						+ myObj[x][3]
+						+ "></p></td><td>"
+						+ myObj[x][0]
+						+ "</td>";
 			}
 			txt += "</table>"
 			document.getElementById("demo").innerHTML = txt;
@@ -48,7 +49,6 @@ function goToRequestDesc(myId, description){
 	document.getElementById("innerdescription" + myId).innerHTML = description;
 };
 
-function getName(getCookie(""))
 </script>
 <script src="getCookie.js"></script>
 </body>

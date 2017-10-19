@@ -57,7 +57,7 @@ public class HHEndpoint {
 	
 	@GetMapping("/supplier")
 	public Iterable<Request> getRequests() {
-		return hhservice.requestList();
+		return requestrepository.getAllRequestsPlusNames();
 	}
 	
 	@GetMapping("/demander/{userId}")
@@ -80,6 +80,7 @@ public class HHEndpoint {
 		Request request = hhservice.showSingleRequest(foo);
 		return request;
 	}
+	
 	
 	@PostMapping("/register")
 	public boolean postRegister(@RequestBody User user) {
