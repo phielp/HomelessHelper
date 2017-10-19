@@ -1,22 +1,18 @@
 <html>
 <head>
 </head>
-<body onload="createMap({lat: 52.5092841, lng: 6.064451299999973})">
-	<input type="text" id="lat" placeholder=Latitude>
+<body onload="getLocation(getCookie('userID'))">
+
 	<input type="text" id="address" placeholder=Address>
 	<br>
-	<input type="text" id="lng" placeholder=Longitude>
-	<br>
-	<button type="button" id="pinPoint" onclick="initMap()">Coordinates</button>
-	&emsp;&emsp;&emsp;&emsp;
 	<button type="button" id="pinPoint2">Address</button>
 	<br>
-	<button type="button" id="getLocation" onclick="getLocation(2)">Get Location</button>
+	<button type="button" id="getLocation" onclick="getLocation(getCookie('userID'))">Get Location</button>
 	
 	<div id="map" style="width:500px;height:500px;background:tomato" class=mapStyle>
 	</div>
+		<script src="getCookie.js"></script>
 		<script>
-		
 		function initMap() {
 			var latitude = parseFloat(document.getElementById("lat").value);
 			var longitude = parseFloat(document.getElementById("lng").value);
@@ -52,10 +48,8 @@
 					});
 					var latFinal = marker.getPosition().lat();
 					var lngFinal = marker.getPosition().lng();
-					console.log(latFinal + ", " + lngFinal);
 					
-					// TODO: get id from cookie
-					setLocation(latFinal, lngFinal, 1);
+					setLocation(latFinal, lngFinal, getCookie('userID'));
 					
 				} else {
 					alert('Geocode was not successful for the following reason: ' + status);
