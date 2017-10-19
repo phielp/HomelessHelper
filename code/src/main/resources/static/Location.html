@@ -7,10 +7,6 @@
 	<br>
 	<button type="button" id="pinPoint2">Address</button>
 	<br>
-
-	<button type="button" id="getLocation" onclick="getLocation(2)">Get Location</button>
-	<br>
-	<br>
 	<div id="map" style="width:500px;height:500px;background:tomato" class=mapStyle>
 	</div>
 	<br>
@@ -19,6 +15,10 @@
 		<script src="getCookie.js"></script>
 
 		<script>
+		
+		function showMultipleMarkers() {
+			
+		}
 		
 		function initMap() {
 			var latitude = parseFloat(document.getElementById("lat").value);
@@ -91,10 +91,10 @@
 				if (this.readyState == 4 && this.status == 200) {
 					locationBD = this.responseText;
 					var data = JSON.parse(locationBD);
-					console.log(data);
+					console.log(data[0]);
 					
 					// Display location from DB
-					if (!data[0] == null) {
+					if (data[0] != null) {
 						createMap({lat: data[0], lng: data[1]});
 					}
 					else {
