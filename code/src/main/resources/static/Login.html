@@ -26,12 +26,13 @@
 				
 				/* createCookie(userName, data[2]); */
 				setCookie("userID", data[2], 365);
+				setCookie("userType", data[1], 365);
 				
 				if (data[1] == true) {
 					location.href="Supplier.html";
 				}
 				else {
-					location.href="Demander.html";	
+					location.href="Demander.html";
 				}
 			}
 			else {
@@ -56,8 +57,6 @@
 	<button type="button" id="loginButton" onclick="login()">Login</button>
 	<button type="button" id="registerButton" onclick=location.href="Register.html" >Register</button>
 	<p id="inlogfout"></p>
-	<br>
-	<button type="button" id="buttoninput" onclick="test()">creeer een cookie</button>
 </body>
 </head>
 </html>

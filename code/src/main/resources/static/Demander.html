@@ -3,7 +3,7 @@
 <head>
 <h1>Hello Demander!</h1>
 </head>
-<body>
+<body onload="userPermission()">
 	<button type="button" id="createRequestButton" onclick=location.href="CreateRequest.html">Create
 		new request</button>
 	<br>
@@ -17,6 +17,17 @@
 	
 	<script src="getCookie.js"></script>
 	<script>
+		function userPermission() {
+			if (getCookie('userType') == "false") {
+				console.log("welkom");
+				/* return true; */
+			} else {
+				console.log("wegwezen!");
+				/* return false; */
+				location.href="Login.html";
+			}
+		}	
+	
 		function showRequests(myId) {
 			var obj, dbParam, xmlhttp, myObj, x, txt = "";
 			obj = {
