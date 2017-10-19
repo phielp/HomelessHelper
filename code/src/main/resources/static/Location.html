@@ -16,13 +16,10 @@
 	<br>
 	<button type="button" id="backToDemander" onclick=location.href="Demander.html">Go back</button>
 
-	<button type="button" id="getLocation" onclick="getLocation(getCookie('userID'))">Get Location</button>
-	
-	<div id="map" style="width:500px;height:500px;background:tomato" class=mapStyle>
-	</div>
 		<script src="getCookie.js"></script>
 
 		<script>
+		
 		function initMap() {
 			var latitude = parseFloat(document.getElementById("lat").value);
 			var longitude = parseFloat(document.getElementById("lng").value);
@@ -33,7 +30,7 @@
 		function createMap(location)	 {
 			var mapOptions = {
 				center: location,
-				zoom: 15,
+				zoom: 17,
 				mapTypeId: google.maps.MapTypeId.HYBRID
 			}
 			var map = new google.maps.Map(document.getElementById("map"), mapOptions);
@@ -94,9 +91,17 @@
 				if (this.readyState == 4 && this.status == 200) {
 					locationBD = this.responseText;
 					var data = JSON.parse(locationBD);
+					console.log(data);
 					
 					// Display location from DB
-					createMap({lat: data[0], lng: data[1]});
+					if (!data[0] == null) {
+						createMap({lat: data[0], lng: data[1]});
+					}
+					else {
+						console.log("o");
+						createMap({lat: 52.5092841, lng: 6.064451299999973});
+					}
+					
 				}
 			};
       		xhttp.open("POST", "http://localhost:8080/getlocation");
