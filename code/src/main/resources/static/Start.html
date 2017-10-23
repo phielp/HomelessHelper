@@ -27,7 +27,6 @@
 		function loginProceed(data) {
 			if (data[0] == true){
 				
-				/* createCookie(userName, data[2]); */
 				setCookie("userID", data[2], 365);
 				setCookie("userType", data[1], 365);
 				
@@ -59,8 +58,6 @@
 			var userName = document.getElementById("userName").value;
 			var password = document.getElementById("password").value;
 			
-			/* var biography = document.getElementById("biography").value; */
-			
 			var newUser= '{"userName":"'+userName+'", "password":"'+password+'", "userpermission":"'+userType+'"}';
 			
 			var xhttp = new XMLHttpRequest();
@@ -72,17 +69,14 @@
 			xhttp.open("POST", "http://localhost:8080/register", true);
 			xhttp.setRequestHeader("Content-type", "application/json");
 			xhttp.send(newUser);
-			backToLogin();
 		}
-		
-		function backToLogin(){
-			location.href="Login.html";
-		}
+
 	</script>
 
 <body>
 	<div class="container">
 	<div class="row">
+	
 		<div class="six columns" style="margin-top: 20%">
 			<h3>Login:</h3>
 			<input type="text" id="userName" placeholder="Username">
@@ -90,10 +84,8 @@
 			<input type="password" id="password" placeholder="Password">
 			<br>
 			<button type="button" id="loginButton" onclick="login()">Login</button>
-			<button type="button" id="registerButton" onclick=location.href="Register.html" >Register</button>
-			<p id="inlogfout"></p>
-		
 		</div>
+		
 		<div class="six columns" style="margin-top: 20%">
 			<h3>Register:</h3>
 			<input type="text" id="userName" placeholder="Username">
@@ -101,17 +93,11 @@
 			<input type="password" id="password" placeholder="Password">
 			<br>
 			<form>
-				<input type="radio" id="Demander" name="rate" value="Demander">Zwerver
-				<input type="radio" id="Supplier" name="rate" value="Supplier" checked>Niet-zwerver
+				<input type="radio" id="Demander" name="rate" value="Demander" checked> Zwerver 
+				<input type="radio" id="Supplier" name="rate" value="Supplier"> Niet-zwerver
 			</form>
-			<form action="/action_page.php">
-				<textarea id="biography" rows="10" cols="30" placeholder="Lifestory"></textarea>
-				<br>
-			</form>
-			
 			<button type="button" id="registerButton" onclick="register()" >Register</button>
-			<button type="button" id="registerButton" onclick=location.href="Login.html" >Back to login</button>
-
+			
 		</div>	
 	</div>
 </div>
