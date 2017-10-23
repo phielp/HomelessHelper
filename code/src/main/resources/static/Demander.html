@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" href="/Users/philipbouman/Documents/Traineeship/Project/HomelessHelper/code/src/main/resources/css/normalize.css">
+  <link rel="stylesheet" href="/Users/philipbouman/Documents/Traineeship/Project/HomelessHelper/code/src/main/resources/css/skeleton.css">
 <h1>Hello Demander!</h1>
 </head>
 <body onload="userPermission()">
@@ -24,7 +26,7 @@
 			} else {
 				console.log("wegwezen!");
 				/* return false; */
-				location.href="Login.html";
+				/* location.href="Login.html"; */
 			}
 		}	
 	
@@ -58,11 +60,10 @@
 								+ myObj[x].id
 								+ "\")' >remove entry</button></td> </tr>";
 					}
+					
 					txt += "</table>"
 					document.getElementById("demo").innerHTML = txt;
 				}
-			//console.log(myObj[0].photo.length);
-
 			};
 			var str = "http://localhost:8080/demander/" + myId;
 			xmlhttp.open("GET", str);
@@ -74,15 +75,16 @@
 		
 		function deleteRequest(myId) {
 			xmlhttp = new XMLHttpRequest();
-			var str = "http://localhost:8080/demander/" + myId;
-			xmlhttp.open("DELETE", str);
-			xmlhttp.send();
+			
 			xmlhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-					showRequests();
+					showRequests(getCookie('userID'));
 				}
 			};
 			
+			var str = "http://localhost:8080/demander/" + myId;
+			xmlhttp.open("DELETE", str);
+			xmlhttp.send();
 		}
 		
 		function showPicture(incomingpicture){
@@ -93,9 +95,7 @@
 			else 
 				return incomingpicture;
 		};
-		
-		
-		
+
 	</script>
 
 </body>
