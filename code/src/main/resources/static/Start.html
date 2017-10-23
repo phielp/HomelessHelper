@@ -5,8 +5,8 @@
 	
 	<script>
 		function login() {
-			var userName = document.getElementById("userName").value;
-			var password = document.getElementById("password").value;
+			var userName = document.getElementById("userNameLogin").value;
+			var password = document.getElementById("passwordLogin").value;
 			
 			var user = '{"userName":"'+userName+'", "password":"'+password+'"}';
 			
@@ -55,8 +55,8 @@
 			} else {
 				userType = document.getElementById("Demander").value;
 			}
-			var userName = document.getElementById("userName").value;
-			var password = document.getElementById("password").value;
+			var userName = document.getElementById("userNameRegister").value;
+			var password = document.getElementById("passwordRegister").value;
 			
 			var newUser= '{"userName":"'+userName+'", "password":"'+password+'", "userpermission":"'+userType+'"}';
 			
@@ -79,24 +79,24 @@
 	
 		<div class="six columns" style="margin-top: 20%">
 			<h3>Login:</h3>
-			<input type="text" id="userName" placeholder="Username">
+			<input type="text" id="userNameLogin" placeholder="Username">
 			<br>
-			<input type="password" id="password" placeholder="Password">
+			<input type="password" id="passwordLogin" placeholder="Password">
 			<br>
 			<button type="button" id="loginButton" onclick="login()">Login</button>
 		</div>
 		
 		<div class="six columns" style="margin-top: 20%">
 			<h3>Register:</h3>
-			<input type="text" id="userName" placeholder="Username">
+			<input type="text" id="userNameRegister" placeholder="Username">
 			<br>
-			<input type="password" id="password" placeholder="Password">
+			<input type="password" id="passwordRegister" placeholder="Password">
 			<br>
 			<form>
 				<input type="radio" id="Demander" name="rate" value="Demander" checked> Zwerver 
 				<input type="radio" id="Supplier" name="rate" value="Supplier"> Niet-zwerver
 			</form>
-			<button type="button" id="registerButton" onclick="register()" >Register</button>
+			<button type="button" id="registerButton" onclick="register()">Register</button>
 			
 		</div>	
 	</div>
