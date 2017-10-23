@@ -1,5 +1,8 @@
 <html>
 <head>
+	<link rel="stylesheet" href="/css/normalize.css">
+	<link rel="stylesheet" href="/css/skeleton.css">
+	
 	<script>
 		function login() {
 			var userName = document.getElementById("userName").value;
@@ -48,15 +51,27 @@
 	</script>
 
 <body>
-	LOGIN:
-	<br>
-	<input type="text" id="userName" placeholder="Username">
-	<br>
-	<input type="password" id="password" placeholder="Password">
-	<br>
-	<button type="button" id="loginButton" onclick="login()">Login</button>
-	<button type="button" id="registerButton" onclick=location.href="Register.html" >Register</button>
-	<p id="inlogfout"></p>
+	<div class="container">
+	<div class="row">
+		<div class="six columns" style="margin-top: 25%">
+			<h3>Login:</h3>
+			<br>
+			<input type="text" id="userName" placeholder="Username">
+			<br>
+			<input type="password" id="password" placeholder="Password">
+			<br>
+			<button type="button" id="loginButton" onclick="login()">Login</button>
+			<button type="button" id="registerButton" onclick=location.href="Register.html" >Register</button>
+			<p id="inlogfout"></p>
+		
+		</div>
+		<div class="six columns"><h1>COLUMN 2</h1>
+
+		</div>	
+	</div>
+</div>
+
+	
 </body>
 </head>
 </html>
