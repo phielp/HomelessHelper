@@ -1,15 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-<h1>Hello Supplier!</h1>
+	<link rel="stylesheet" href="/css/normalize.css">
+	<link rel="stylesheet" href="/css/skeleton.css">
+	<link rel="stylesheet" href="/css/custom.css">
 </head>
-<body>
-<button type="button" id="loginButton" onclick="showRequests()">Show all existing requests</button>
-<p id="demo"></p>
+<body onload="showRequests()">
+
+<div class="navbar-spacer"></div>
+    <nav class="navbar">
+      
+        <ul class="navbar-list">
+     		<li class="navbar-item" 
+     			style="margin-top:0.8%; margin-left:78%">
+     			<input type="text" id="myInput" onkeyup="searchThroughSupplierTable()" placeholder="Search for requests..." title="Type in a name">
+     		</li>
+          	
+          	<li class="navbar-item" style="float:right"><a class="navbar-link" href="Login.html">Logout</a>
+          	</li>
+   		</ul>
+      
+    </nav>
+
+    <div class="row">
+    	<div class="six columns">
+    		<center><h6>All available requests</h6></center>
+   		    <p id="demo"></p>
+			
+		</div>
+		
+		<div class="six columns"><h6>COLUMN 2</h6>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
 
 <script src="getCookie.js"></script>
 <script>
 
+function searchThroughSupplierTable() {
+	  var input, filter, table, tr, td, i;
+	  input = document.getElementById("myInput");
+	  filter = input.value.toUpperCase();
+	  table = document.getElementById("supplierTable");
+	  tr = table.getElementsByTagName("tr");
+	  for (i = 0; i < tr.length; i++) {
+	    td = tr[i].getElementsByTagName("td")[2];
+	    if (td) {
+	      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+	        tr[i].style.display = "";
+	      } else {
+	        tr[i].style.display = "none";
+	      }
+	    }       
+	  }
+	}
+	
 function showRequests() {
 	var obj, dbParam, xmlhttp, myObj, x, txt = "";
 	obj = {
@@ -23,34 +78,41 @@ function showRequests() {
 			myObj = JSON.parse(this.responseText);
 			//alert(myObj.length);
 			var locationList = [];
-			txt += "<table border='1'>"
-			txt += "<tr><td><b>Titel<b></td><td><b>Plaatje<b></td><td></td><td></td><td><b>Vrager<b></td>"
+			txt += "<table id='supplierTable' border='1'>"
+			txt += "<thead><tr><th>Title</th><th>Image</th><th>Description</th><th>Vrager</th></tr></thead>"
 			for (x in myObj) {
-				txt += "<tr><td>"
+				var picture = myObj[x][4];
+				var picture = showPicture(picture);
+				txt += "<tbody><tr><td>"
 						+ myObj[x][2] 
-						+ "</td> <td> <img src='"+myObj[x][4]+"' style='width:100px;height:100px;' />"	
-						+ "</td><td><button type='button' onclick='goToRequestDesc(\""
-						+ myObj[x][3]+"\", \""
-						+ myObj[x][1]+"\" )'>Show description</td>"
-						+ "<td><p id=innerdescription"
-						+ myObj[x][3]
-						+ "></p></td><td>"
+						+ "</td> <td> <img src='"+picture+"' style='width:100px;height:100px;' />"	
+						+ "</td><td>"
+						+ myObj[x][1]
+						+ "</td><td>"
 						+ myObj[x][0]
 						+ "</td>";
 						locationList[x] = [myObj[x][5], myObj[x][6]];
-						console.log(locationList);
-			}
-			txt += "</table>"
+			}	
+			txt += "</tbody></table>"
 			document.getElementById("demo").innerHTML = txt;
 		}
-};
-xmlhttp.open("GET", "http://localhost:8080/supplier");
-xmlhttp.setRequestHeader("Content-type", "application/json");
-xmlhttp.send("x=" + dbParam);
+	};
+	xmlhttp.open("GET", "http://localhost:8080/supplier");
+	xmlhttp.setRequestHeader("Content-type", "application/json");
+	xmlhttp.send("x=" + dbParam);
 }
 
 function goToRequestDesc(myId, description){
 	document.getElementById("innerdescription" + myId).innerHTML = description;
+};
+
+function showPicture(incomingpicture){
+	if (incomingpicture.length<=5034){
+		var picture="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBoZWlnaHQ9IjMwMHB4IiB3aWR0aD0iMzAwcHgiIHZlcnNpb249IjEuMCIgdmlld0JveD0iLTMwMCAtMzAwIDYwMCA2MDAiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8Y2lyY2xlIHN0cm9rZT0iI0FBQSIgc3Ryb2tlLXdpZHRoPSIxMCIgcj0iMjgwIiBmaWxsPSIjRkZGIi8+Cjx0ZXh0IHN0eWxlPSJsZXR0ZXItc3BhY2luZzoxO3RleHQtYW5jaG9yOm1pZGRsZTt0ZXh0LWFsaWduOmNlbnRlcjtzdHJva2Utb3BhY2l0eTouNTtzdHJva2U6IzAwMDtzdHJva2Utd2lkdGg6MjtmaWxsOiM0NDQ7Zm9udC1zaXplOjM2MHB4O2ZvbnQtZmFtaWx5OkJpdHN0cmVhbSBWZXJhIFNhbnMsTGliZXJhdGlvbiBTYW5zLCBBcmlhbCwgc2Fucy1zZXJpZjtsaW5lLWhlaWdodDoxMjUlO3dyaXRpbmctbW9kZTpsci10YjsiIHRyYW5zZm9ybT0ic2NhbGUoLjIpIj4KPHRzcGFuIHk9Ii00MCIgeD0iOCI+Tk8gSU1BR0U8L3RzcGFuPgo8dHNwYW4geT0iNDAwIiB4PSI4Ij5BVkFJTEFCTEU8L3RzcGFuPgo8L3RleHQ+Cjwvc3ZnPg==";
+		return picture;
+	}
+	else 
+		return incomingpicture;
 };
 
 </script>

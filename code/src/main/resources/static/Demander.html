@@ -11,71 +11,17 @@
 
 <div class="navbar-spacer"></div>
     <nav class="navbar">
-      <div class="container">
+      
         <ul class="navbar-list">
-          <li class="navbar-item"><a class="navbar-link" href="#intro">Intro</a></li>
-          <li class="navbar-item">
-            <a class="navbar-link" href="#" data-popover="#codeNavPopover">Code</a>
-            <div id="codeNavPopover" class="popover">
-              <ul class="popover-list">
-                <li class="popover-item">
-                  <a class="popover-link" href="#grid">Grid</a>
-                </li>
-                <li class="popover-item">
-                  <a class="popover-link" href="#typography">Typography</a>
-                </li>
-                <li class="popover-item">
-                  <a class="popover-link" href="#buttons">Buttons</a>
-                </li>
-                <li class="popover-item">
-                  <a class="popover-link" href="#forms">Forms</a>
-                </li>
-                <li class="popover-item">
-                  <a class="popover-link" href="#lists">Lists</a>
-                </li>
-                <li class="popover-item">
-                  <a class="popover-link" href="#code">Code</a>
-                </li>
-                <li class="popover-item">
-                  <a class="popover-link" href="#tables">Tables</a>
-                </li>
-                <li class="popover-item">
-                  <a class="popover-link" href="#queries">Queries</a>
-                </li>
-                <li class="popover-item">
-                  <a class="popover-link" href="#utilities">Utilities</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="navbar-item"><a class="navbar-link" href="#examples">Examples</a></li>
-          <li class="navbar-item">
-            <a class="navbar-link" href="#" data-popover="#moreNavPopover">More</a>
-            <div id="moreNavPopover" class="popover">
-              <ul class="popover-list">
-                <li class="popover-item">
-                  <a class="popover-link" href="https://github.com/dhg/Skeleton">On Github</a>
-                </li>
-                <li class="popover-item">
-                  <a class="popover-link" href="https://github.com/dhg/Skeleton#browser-support">Browsers</a>
-                </li>
-                <li class="popover-item">
-                  <a class="popover-link" href="https://github.com/dhg/Skeleton#license">License</a>
-                </li>
-                <li class="popover-item">
-                  <a class="popover-link" href="https://github.com/dhg/Skeleton#extensions">Extensions</a>
-                </li>
-                <li class="popover-item">
-                  <a class="popover-link" href="https://github.com/dhg/Skeleton/releases">Versions</a>
-                </li>
-                <li class="popover-item">
-                  <a class="popover-link" href="https://github.com/dhg/Skeleton#colophon">Colophon</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </div>
+     		<li class="navbar-item" 
+     			style="margin-top:0.8%; margin-left:78%">
+     			<input type="text" id="myInput" onkeyup="searchThroughTable()" placeholder="Search for requests..." title="Type in a name">
+     		</li>
+          	
+          	<li class="navbar-item" style="float:right"><a class="navbar-link" href="Login.html">Logout</a>
+          	</li>
+   		</ul>
+      
     </nav>
 
     <div class="row">
@@ -89,10 +35,29 @@
 		<div class="six columns"><h1>COLUMN 2</h1>
 		</div>
 	</div>
-
+	
 	
 	<script src="getCookie.js"></script>
 	<script>
+		
+		function searchThroughTable() {
+			  var input, filter, table, tr, td, i;
+			  input = document.getElementById("myInput");
+			  filter = input.value.toUpperCase();
+			  table = document.getElementById("requestTable");
+			  tr = table.getElementsByTagName("tr");
+			  for (i = 0; i < tr.length; i++) {
+			    td = tr[i].getElementsByTagName("td")[2];
+			    if (td) {
+			      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+			        tr[i].style.display = "";
+			      } else {
+			        tr[i].style.display = "none";
+			      }
+			    }       
+			  }
+			}
+				
 		function userPermission() {
 			if (getCookie('userType') == "false") {
 				console.log("welkom");
@@ -115,7 +80,7 @@
 			xmlhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 					myObj = JSON.parse(this.responseText);
-					txt += "<table border='1' class=\"u-full-width\">"
+					txt += "<table id='requestTable' border='1' class=\"u-full-width\">"
 					txt += "<thead><tr><th>Title</th><th>Image</th><th>Description</th><th>Action</th></tr></thead>"
 					for (x in myObj) {
 						var picture = myObj[x].photo;
