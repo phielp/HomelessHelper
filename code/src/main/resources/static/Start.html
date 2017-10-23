@@ -1,0 +1,122 @@
+<html>
+<head>
+	<link rel="stylesheet" href="/css/normalize.css">
+	<link rel="stylesheet" href="/css/skeleton.css">
+	
+	<script>
+		function login() {
+			var userName = document.getElementById("userName").value;
+			var password = document.getElementById("password").value;
+			
+			var user = '{"userName":"'+userName+'", "password":"'+password+'"}';
+			
+			var xhttp = new XMLHttpRequest();
+			
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var check = this.responseText;
+					var data = JSON.parse(check);
+					loginProceed(data);	
+				}
+			};
+      		xhttp.open("POST", "http://localhost:8080/login");
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.send(user);
+		}
+		
+		function loginProceed(data) {
+			if (data[0] == true){
+				
+				/* createCookie(userName, data[2]); */
+				setCookie("userID", data[2], 365);
+				setCookie("userType", data[1], 365);
+				
+				if (data[1] == true) {
+					location.href="Supplier.html";
+				}
+				else {
+					location.href="Demander.html";
+				}
+			}
+			else {
+				document.getElementById("inlogfout").innerHTML = "Combination of username and password unknown"}
+			}
+		
+		function setCookie(cname, cvalue, exdays) {
+		    var d = new Date();
+		    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+		    var expires = "expires="+ d.toUTCString();
+		    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		}
+		
+		function register() {
+			var userType;
+			if(document.getElementById('Supplier').checked) {
+				userType = document.getElementById("Supplier").value;
+			} else {
+				userType = document.getElementById("Demander").value;
+			}
+			var userName = document.getElementById("userName").value;
+			var password = document.getElementById("password").value;
+			
+			/* var biography = document.getElementById("biography").value; */
+			
+			var newUser= '{"userName":"'+userName+'", "password":"'+password+'", "userpermission":"'+userType+'"}';
+			
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					
+				}
+			};
+			xhttp.open("POST", "http://localhost:8080/register", true);
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.send(newUser);
+			backToLogin();
+		}
+		
+		function backToLogin(){
+			location.href="Login.html";
+		}
+	</script>
+
+<body>
+	<div class="container">
+	<div class="row">
+		<div class="six columns" style="margin-top: 20%">
+			<h3>Login:</h3>
+			<input type="text" id="userName" placeholder="Username">
+			<br>
+			<input type="password" id="password" placeholder="Password">
+			<br>
+			<button type="button" id="loginButton" onclick="login()">Login</button>
+			<button type="button" id="registerButton" onclick=location.href="Register.html" >Register</button>
+			<p id="inlogfout"></p>
+		
+		</div>
+		<div class="six columns" style="margin-top: 20%">
+			<h3>Register:</h3>
+			<input type="text" id="userName" placeholder="Username">
+			<br>
+			<input type="password" id="password" placeholder="Password">
+			<br>
+			<form>
+				<input type="radio" id="Demander" name="rate" value="Demander">Zwerver
+				<input type="radio" id="Supplier" name="rate" value="Supplier" checked>Niet-zwerver
+			</form>
+			<form action="/action_page.php">
+				<textarea id="biography" rows="10" cols="30" placeholder="Lifestory"></textarea>
+				<br>
+			</form>
+			
+			<button type="button" id="registerButton" onclick="register()" >Register</button>
+			<button type="button" id="registerButton" onclick=location.href="Login.html" >Back to login</button>
+
+		</div>	
+	</div>
+</div>
+
+	
+</body>
+</head>
+</html>
