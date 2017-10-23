@@ -1,21 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="/Users/philipbouman/Documents/Traineeship/Project/HomelessHelper/code/src/main/resources/css/normalize.css">
-  <link rel="stylesheet" href="/Users/philipbouman/Documents/Traineeship/Project/HomelessHelper/code/src/main/resources/css/skeleton.css">
+	<link rel="stylesheet" href="/css/normalize.css">
+	<link rel="stylesheet" href="/css/skeleton.css">
+	<link rel="stylesheet" href="/css/custom.css">
+	
 <h1>Hello Demander!</h1>
 </head>
-<body onload="userPermission()">
+<body onload="userPermission(); showRequests(getCookie('userID'))">
+
+
+    <div class="row">
+    	<div class="six columns">
+     
+  
 	<button type="button" id="createRequestButton" onclick=location.href="CreateRequest.html">Create
 		new request</button>
 	<br>
-	<br>
+	<!-- <br>
 	<button type="button" id="loginButton" onclick="showRequests(getCookie('userID'))">Show all my existing requests</button>
-	<br>
+	<br> -->
 	<br>
 	<button type="button" id="goToUpdateLocation" onclick=location.href="Location.html">Update my location</button>
 
 	<p id="demo"></p>
+		</div>
+		<div class="six columns"><h1>COLUMN 2</h1>
+		</div>
+	</div>
+
 	
 	<script src="getCookie.js"></script>
 	<script>
@@ -41,27 +54,27 @@
 			xmlhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 					myObj = JSON.parse(this.responseText);
-					txt += "<table border='1'>"
-					txt += "<tr><td><b>Titel<b></td><td><b>Plaatje<b></td>"
+					txt += "<table border='1' class=\"u-full-width\">"
+					txt += "<thead><tr><th>Titel</th><th>Plaatje</th></tr></thead>"
 					for (x in myObj) {
 						var picture = myObj[x].photo;
 						var picture = showPicture(picture);
-						txt += "<tr><td>"
+						txt += "<tbody><tr><td>"
 								+ myObj[x].requestTitle
 								+ "</td>"
 								+ "<td> <img src='"+picture+"' style='width:100px;height:100px;' /></td>"
 								+ "<td><button type='button' onclick='goToRequestDesc(\""
 								+ myObj[x].id+"\", \""
-								+ myObj[x].description+"\" )'>Show description</td>"
+								+ myObj[x].description+"\" )'>description</td>"
 								+ "<td><p id=innerdescription"
 								+ myObj[x].id
 								+ "></p></td>"
 								+ "<td><button type='button' onclick='deleteRequest(\""
 								+ myObj[x].id
-								+ "\")' >remove entry</button></td> </tr>";
+								+ "\")' >remove</button></td> </tr>";
 					}
 					
-					txt += "</table>"
+					txt += "</tbody></table>"
 					document.getElementById("demo").innerHTML = txt;
 				}
 			};
