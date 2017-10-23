@@ -2,22 +2,6 @@
 <head>
 	<script src="getCookie.js"></script>
 	<script>
-		/* IMG from file */
-		function previewFile() {
-		     var preview = document.querySelector('img');
-		     var file    = document.querySelector('input[type=file]').files[0];
-		     var reader  = new FileReader();
-		
-		     reader.onloadend = function () {
-		         preview.src = reader.result;
-		     }
-		
-		     if (file) {
-		         reader.readAsDataURL(file);
-		     } else {
-		         preview.src = "";
-		     }
-		}
 		
 		/* Img from url  */
 		function toDataURL(url, callback) {
@@ -40,16 +24,7 @@
 			toDataURL(imgURL, function(dataUrl) {
 				console.log('RESULT:', dataUrl);
 				createRequest(dataUrl);
-				backToDemander();
 			})
-		}
-		
-		/* base64 to img */
-		function toImage() {
-			var imgSRC = document.getElementById("imgSRC").value;
-			var image = new Image();
-			image.src = imgSRC;
-			document.body.appendChild(image);
 		}
 		
 		function createRequest(dataUrl) {
@@ -84,9 +59,7 @@
 			xhttp.setRequestHeader("Content-type", "application/json");
 			xhttp.send(newRequest);
 		}
-		function backToDemander(){
-			location.href="Demander.html";
-		}
+
 	</script>
 <body>
 
