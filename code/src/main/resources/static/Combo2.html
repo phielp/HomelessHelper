@@ -78,6 +78,7 @@
 		};
 		
 		var users = [];
+		var suppliers = [];
 		
 		function getAllUsers() {
 			xmlhttp = new XMLHttpRequest();
@@ -86,7 +87,8 @@
 					var check = this.responseText;
 					var data = JSON.parse(check);
 				 	getAllDemanders(data);
-				 	createMap(users);
+				 	getAllSuppliers(data);
+				 	createMap(users, suppliers);
 				}
 			};	
 			var str = "http://localhost:8080/login";
@@ -98,6 +100,14 @@
 			for (var i = 0; i < data.length; i++) {
 				if (data[i].userpermission === "Demander") {	
 					users.push([data[i].latitude, data[i].longitude, data[i].userName, data[i].id]);
+				}
+			}
+		}
+		
+		function getAllSuppliers(data) {
+			for (var i = 0; i < data.length; i++) {
+				if (data[i].userpermission === "Supplier") {	
+					suppliers.push([data[i].latitude, data[i].longitude, data[i].userName, data[i].id]);
 				}
 			}
 		}
@@ -151,24 +161,30 @@
 			
 			<div class="six columns">
 				<h3>Request locations</h3>
-				<div id="map" style="width:500px;height:500px;background:lightgrey" class=mapStyle>
-				</div>	
-				<input type="text" id="address" placeholder=Address>
-				<br>
-				<button type="button" id="pinPoint2" >Mark Location</button>
+				<div class="row">
+					<div class="six columns">
+						<input type="text" id="address" placeholder=Address>
+					</div>
+					<div class="six columns">
+						<button type="button" id="pinPoint2">Mark Location</button>
+					</div>
+				</div>
+
+				<div id="map" style="width:500px;height:500px;background:lightgrey" class=mapStyle></div>	
+				
 			</div>
 		</div>
 	</div>
 	
 	<script type="text/javascript">
-		function createMap(locations) {
+		function createMap(locationsDem, locationsSup) {
 			var centerLocation = new google.maps.LatLng(52.5092841, 6.064451299999973);
 			
 			cookieID = getCookie('userID');
-			for (var j = 0; j < locations.length; j++) {
-				if (cookieID == locations[j][3]) {
-					console.log(locations[j][3]);
-					centerLocation =  new google.maps.LatLng(locations[j][0], locations[j][1]);
+			for (var j = 0; j < locationsSup.length; j++) {
+				if (cookieID == locationsSup[j][3]) {
+					console.log(locationsSup[j][3]);
+					centerLocation =  new google.maps.LatLng(locationsSup[j][0], locationsSup[j][1]);
 				}
 			}
 			
@@ -183,24 +199,25 @@
 		
 		    var marker, i;
 		
-		    for (i = 0; i < locations.length; i++) {  
+		    for (i = 0; i < locationsDem.length; i++) {  
 		      marker = new google.maps.Marker({
-		        position: new google.maps.LatLng(locations[i][0], locations[i][1]),
+		        position: new google.maps.LatLng(locationsDem[i][0], locationsDem[i][1]),
 		        map: map
 		      });
-		      
-		      var geocoder = new google.maps.Geocoder();
-				document.getElementById('pinPoint2').addEventListener('click', function() {
-					geocodeAddress(geocoder, map);
-				});
 		
 		      google.maps.event.addListener(marker, 'click', (function(marker, i) {
 		        return function() {
-		          infowindow.setContent(String(locations[i][2]));
+		          infowindow.setContent(String(locationsDem[i][2]));
 		          infowindow.open(map, marker);
 		        }
 		      })(marker, i));
 		    }
+		    
+		    var geocoder = new google.maps.Geocoder();
+			document.getElementById('pinPoint2').addEventListener('click', function() {
+				geocodeAddress(geocoder, map);
+			});
+		    
 		}
 		
 		function geocodeAddress(geocoder, resultsMap) {
@@ -216,7 +233,7 @@
 					var lngFinal = marker.getPosition().lng();
 					
 					setLocation(latFinal, lngFinal, getCookie('userID'));
-					users.push([latFinal, lngFinal, "user"]);
+					suppliers.push([latFinal, lngFinal, "user"]);
 					
 				} else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {    
 			            setTimeout(function() {
