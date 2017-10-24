@@ -169,20 +169,24 @@
 </head>
 <body onload="getAllUsers()">
 
-	<div class="navbar-spacer"></div>
-    <nav class="navbar">
-      
-        <ul class="navbar-list">
-     		<li class="navbar-item" 
-     			style="margin-top:0.8%; margin-left:78%">
-     			<input type="text" id="myInput" onkeyup="searchThroughSupplierTable()" placeholder="Search for requests..." title="Type in a name">
-     		</li>
-          	
-          	<li class="navbar-item" style="float:right"><a class="navbar-link" href="Login.html">Logout</a>
-          	</li>
-   		</ul>
-      
-    </nav>
+	<div class="container">
+	    <nav class="navbar">
+	      
+	        <ul class="navbar-list">
+	        	
+	        	<li class="navbar-item" style="float:left; margin-top: 2px">
+	          	<img src="homelesshelpergrey.png">
+	          	</li>
+
+	          	<li class="navbar-item" style="float:right"><a class="navbar-link" href="Start.html">Logout</a></li>
+	          	
+	          	<li class="navbar-item" 
+	     			style="margin-top:15px; float:right; margin-right:2.5%;">
+	     			<input type="text" id="myInput" onkeyup="searchThroughTable()" placeholder="Search for requests..." title="Type in a name"></li>
+	   		</ul>
+	    </nav>
+	</div>
+	
 	<div class="container">
 	    <div class="row">
 		    	<div class="six columns">
