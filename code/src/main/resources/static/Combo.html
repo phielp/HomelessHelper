@@ -317,42 +317,46 @@
 	<div class="container">
 		<div class="row">
 			<div id="leftColumn" class="six columns">
-				<h3>My requests</h3>
+				<h3>Current Requests</h3>
 	   		    <p id="demo"></p>
 			</div>	
 			
 			<div id="rightColumn" class="six columns">
 	
 				<div id="rightColumnTop">
-					<h3>Create New Request:</h3>
-						<div class="row">
-							<div class="six columns">
-								<input type="text" id="requestTitle" placeholder="Request title">
-								<input type="text" id="imgURL" placeholder="Image URL">
-							</div>
-							
-							<div class="six columns">
-								<input type="radio" id="Food" name="rate" value="FOOD" checked> Food <br>
-								<input type="radio" id="Clothes" name="rate" value="CLOTHES"> Clothing <br>
-								<input type="radio" id="Other" name="rate" value="OTHER"> Other <br>
-							</div>
+					<h3>Create New Request</h3>
+					
+					<div class="row">
+						<div class="six columns">
+							<input type="text" id="requestTitle" placeholder="Request title">
+							<input type="text" id="imgURL" placeholder="Image URL">
 						</div>
-		
-					<form action="/action_page.php">
-						<textarea id="description" rows="20" cols="40" placeholder="Description of request"></textarea>
-					</form>
-				
+						
+						<div class="six columns">
+							<input type="radio" id="Food" name="rate" value="FOOD" checked> Food <br>
+							<input type="radio" id="Clothes" name="rate" value="CLOTHES"> Clothing <br>
+							<input type="radio" id="Other" name="rate" value="OTHER"> Other <br>
+						</div>
+					</div>
+						
+					<textarea id="description" rows="20" cols="42" placeholder="Description of request"></textarea>
 					<button type="button" id="makeRequest" onclick="createURL(), showRequests(getCookie('userID'))">Create Request</button> 
 				</div>
 				
 				<div id="rightColumnBottom">
-					<h3>Mark Location:</h3>
-					<input type="text" id="address" placeholder=Address>
-					<br>
-					<button type="button" id="pinPoint2">Mark Location</button>
-					<br>
-					<div id="map" style="width:500px;height:500px;background:lightgrey" class=mapStyle>
+					<h3>Mark Location</h3>
+					
+					<div class="row">
+						<div class="six columns">
+							<input type="text" id="address" placeholder=Address>
+						</div>
+						<div class="six columns">
+							<button type="button" id="pinPoint2">Mark Location</button>
+						</div>
 					</div>
+
+					<div id="map" style="width:500px;height:500px;background:lightgrey" class=mapStyle></div>
+					
 				</div>
 				
 			</div>	
