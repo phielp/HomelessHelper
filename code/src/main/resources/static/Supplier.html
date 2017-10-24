@@ -11,13 +11,20 @@
     <nav class="navbar">
       
         <ul class="navbar-list">
+        	
+        	<li class="navbar-item" style="float:left; margin-left: 1%">
+          	<img src="homelesshelper.png">
+          	</li>
+        	
      		<li class="navbar-item" 
-     			style="margin-top:0.8%; margin-left:78%">
+     			style="margin-top:0.8%; margin-left:70%">
      			<input type="text" id="myInput" onkeyup="searchThroughSupplierTable()" placeholder="Search for requests..." title="Type in a name">
      		</li>
           	
           	<li class="navbar-item" style="float:right"><a class="navbar-link" href="Login.html">Logout</a>
           	</li>
+          	
+          	
    		</ul>
       
     </nav>
@@ -80,6 +87,10 @@ function showRequests() {
 			var locationList = [];
 			txt += "<table id='supplierTable' border='1'>"
 			txt += "<thead><tr><th>Title</th><th>Image</th><th>Description</th><th>Vrager</th></tr></thead>"
+			if(myObj.length==0) {
+				txt = "Er zijn nog geen requests geplaatst, heb geduld!"
+			}
+			else {
 			for (x in myObj) {
 				var picture = myObj[x][4];
 				var picture = showPicture(picture);
@@ -94,6 +105,7 @@ function showRequests() {
 						locationList[x] = [myObj[x][5], myObj[x][6]];
 			}	
 			txt += "</tbody></table>"
+			}
 			document.getElementById("demo").innerHTML = txt;
 		}
 	};

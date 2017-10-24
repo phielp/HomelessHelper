@@ -2,6 +2,7 @@
 <head>
 	<link rel="stylesheet" href="/css/normalize.css">
 	<link rel="stylesheet" href="/css/skeleton.css">
+	<link rel="stylesheet" href="/css/custom.css">
 	
 	<script src="getCookie.js"></script>
 	<script>
@@ -41,6 +42,24 @@
 			xhttp.responseType = 'blob';
 			xhttp.send();
 		}
+		
+		function searchThroughTable() {
+			  var input, filter, table, tr, td, i;
+			  input = document.getElementById("myInput");
+			  filter = input.value.toUpperCase();
+			  table = document.getElementById("requestTable");
+			  tr = table.getElementsByTagName("tr");
+			  for (i = 0; i < tr.length; i++) {
+			    td = tr[i].getElementsByTagName("td")[2];
+			    if (td) {
+			      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+			        tr[i].style.display = "";
+			      } else {
+			        tr[i].style.display = "none";
+			      }
+			    }       
+			  }
+			}
 
 		function createURL() {
 			var imgURL = document.getElementById("imgURL").value;
@@ -215,8 +234,12 @@
 			xmlhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 					myObj = JSON.parse(this.responseText);
-					txt += "<table border='1' class=\"u-full-width\">"
+					txt += "<table id='requestTable' border='1' class=\"u-full-width\">"
 					txt += "<thead><tr><th>Title</th><th>Image</th><th>Description</th><th>Action</th></tr></thead>"
+					if (myObj.length==0){
+						txt = "U heeft nog geen requests geplaatst, gebruik hiervoor het menu aan de rechterkant.";
+						}
+					else {
 					for (x in myObj) {
 						var picture = myObj[x].photo;
 						var picture = showPicture(picture);
@@ -233,6 +256,7 @@
 					}
 					
 					txt += "</tbody></table>"
+					}
 					document.getElementById("demo").innerHTML = txt;
 				}
 			};
@@ -270,9 +294,28 @@
 
 <body onload="getLocation(getCookie('userID')), userPermission(), showRequests(getCookie('userID'))">
 
+<div class="navbar-spacer"></div>
+    <nav class="navbar">
+      
+        <ul class="navbar-list">
+        	
+        	<li class="navbar-item" style="float:left; margin-left: 10%; margin-top: 2px">
+          	<img src="homelesshelpergrey.png">
+          	</li>
+        
+     		<li class="navbar-item" 
+     			style="margin-top:0.8%; margin-left:62%">
+     			<input type="text" id="myInput" onkeyup="searchThroughTable()" placeholder="Search for requests..." title="Type in a name">
+     		</li>
+          	
+          	<li class="navbar-item" style="float:right"><a class="navbar-link" href="Start.html">Logout</a>
+          	</li>
+   		</ul>
+      
+    </nav>
+
 	<div class="container">
 		<div class="row">
-		
 			<div id="leftColumn" class="six columns">
 				<h3>My requests</h3>
 	   		    <p id="demo"></p>
