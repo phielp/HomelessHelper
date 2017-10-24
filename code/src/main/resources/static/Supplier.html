@@ -53,6 +53,20 @@
 
 <script src="getCookie.js"></script>
 <script>
+function getDistanceToRequester(RLat, RLon){
+	var SLat = 51.1030
+	var SLon = 5.868
+	
+	var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(SLat, SLon), new google.maps.LatLng(RLat, RLon));
+	if (distance<1000){
+		return distance.toFixed(0) + "m";
+	}
+	else{
+		return (distance/1000).toFixed(1) + "km";
+	}
+	
+}
+
 
 function searchThroughSupplierTable() {
 	  var input, filter, table, tr, td, i;
@@ -92,6 +106,7 @@ function showRequests() {
 			}
 			else {
 			for (x in myObj) {
+				locationList[x] = [myObj[x][5], myObj[x][6]];
 				var picture = myObj[x][4];
 				var picture = showPicture(picture);
 				txt += "<tbody><tr><td>"
@@ -101,8 +116,11 @@ function showRequests() {
 						+ myObj[x][1]
 						+ "</td><td>"
 						+ myObj[x][0]
+						+ "</td><td>" 
+						+ getDistanceToRequester(locationList[x][0],locationList[x][1])
 						+ "</td>";
-						locationList[x] = [myObj[x][5], myObj[x][6]];
+						console.log(locationList[x][0]);
+						
 			}	
 			txt += "</tbody></table>"
 			}
@@ -128,6 +146,7 @@ function showPicture(incomingpicture){
 };
 
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4Kc240y7EnXNjfoKwXu-D4-HoelP_fU&libraries=geometry"></script>
 <script src="getCookie.js"></script>
 </body>
 </html>

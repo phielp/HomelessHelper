@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+
+
+function werkend(){
+	var latitude1 = 50.46;
+	var longitude1 = 0.36;
+	var latitude2 = 50.46;
+	var longitude2 = 0.36;
+	
+	var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude1, longitude1), new google.maps.LatLng(latitude2, longitude2));
+	console.log(distance + 'yoman');
+	}
+
+
+
+</script>
+<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4Kc240y7EnXNjfoKwXu-D4-HoelP_fU&libraries=geometry">
+	</script>
+	
+	
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<button type="button" id="makeRequest" onclick="coordinatesToDistance(50, 5, 50, 5); werkend()">Create Request</button> 
+
+</body>
+</html>
