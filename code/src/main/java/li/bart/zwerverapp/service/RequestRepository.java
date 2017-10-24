@@ -16,6 +16,6 @@ public interface RequestRepository extends CrudRepository<Request, Long> {
 	@Query("SELECT E from Request E where created_by = ?1")	
 	public Iterable<Request> getMyRequests(Long userId);
 	
-	@Query("SELECT u.userName, r.description, r.requestTitle, r.id, r.photo, u.latitude, u.longitude, u.id from User u, Request r where r.createdBy = u.id" )
+	@Query("SELECT u.userName, r.description, r.requestTitle, r.id, r.photo, u.latitude, u.longitude from User u, Request r where r.createdBy = u.id" )
 	public Iterable<Request> getAllRequestsPlusNames();
 }
