@@ -32,12 +32,6 @@ public class HHEndpoint {
 	@Autowired
 	private RequestRepository requestrepository;
 
-	
-	@GetMapping ("/zwerver")
-	public String getZwerver() {
-		return "jeow";
-	}
-	
 	@GetMapping("/login")
 	public Iterable<User> getLogin() {
 		return hhservice.userList();
@@ -109,6 +103,17 @@ public class HHEndpoint {
 		location[0] = demander.getLatitude();
 		location[1] = demander.getLongitude();
 		return location;
+	}
+	
+	@PostMapping("/setRequestAccept")
+	public void setRequestAccept(@RequestBody Request request) {
+		hhservice.postRequest(request);
+	}
+	
+	@GetMapping("/getRequestAccept/{id}")
+	public boolean getRequestAccept(@PathVariable long id) {
+		Request request = hhservice.showSingleRequest(id);
+		return request.isRequestSupplier();
 	}
 }
 
