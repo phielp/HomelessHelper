@@ -3,6 +3,7 @@
 	<link rel="stylesheet" href="/css/normalize.css">
 	<link rel="stylesheet" href="/css/skeleton.css">
 	<link rel="stylesheet" href="/css/custom.css">
+	<link rel="stylesheet" href="/css/dropdown.css">
 	
 	<script src="getCookie.js"></script>
 	<script>
@@ -243,8 +244,16 @@
 					for (x in myObj) {
 						var picture = myObj[x].photo;
 						var picture = showPicture(picture);
-						txt += "<tbody><tr><td>"
-								+ myObj[x].requestTitle
+						if (myObj[x].requestSupplier==true){
+							txt += "<tbody><tr onmouseover='dropdownFunction()' bgcolor='#EEE'><div id='myDropdown' class='dropdown-content'>"
+								+ myObj[x].requestSupplier
+								+ "</div><td>"
+							
+						}
+						else {
+							txt += "<tbody><tr bgcolor='#FFF'><td>"
+						}
+								txt += myObj[x].requestTitle
 								+ "</td>"
 								+ "<td> <img src='"+picture+"' style='width:100px;height:100px;' /></td>"
 								+ "<td>"
@@ -287,6 +296,12 @@
 			else 
 				return incomingpicture;
 		};
+		
+		
+		function dropdownFunction() {
+		    document.getElementById("myDropdown").classList.toggle("show");
+		}
+
 		
 	</script>
 	
@@ -360,7 +375,7 @@
 			</div>	
 		</div>
 	</div>
-
+	
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4Kc240y7EnXNjfoKwXu-D4-HoelP_fU&callback=createMap">
 	</script>
