@@ -21,7 +21,6 @@ public class HHService {
 	@Autowired
 	private DemanderRepository demanderrepository;
 	
-	
 	public User registerUser(User user) {
 		zwerverrepository.save(user);
 		return user;
@@ -39,7 +38,6 @@ public class HHService {
 		Request request = requestrepository.findOne(requestId);
 		return request;
 	}
-	
 	
 	public ArrayList<Object> knownUser(Iterable<User> knownUsers, User user) {
 		ArrayList<Object> booleanLijst = new ArrayList<Object>();
@@ -59,7 +57,6 @@ public class HHService {
 		booleanLijst.add(check3);
 		return booleanLijst;
 	}
-	
 
 	public Request postRequest(Request request) {
 		requestrepository.save(request);
@@ -69,11 +66,7 @@ public class HHService {
 	public Iterable<Request> requestList() {
 		return requestrepository.findAll();
 	}
-	
-//	public User getUser(Long userId) {
-//		return zwerverrepository.findOne(userId);
-//	}
-	
+
 	public User getDemander(Long userId) {
 		return demanderrepository.findOne(userId);
 	}
