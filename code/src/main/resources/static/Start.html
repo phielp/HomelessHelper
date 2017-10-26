@@ -58,11 +58,13 @@
 			}
 			var userName = document.getElementById("userNameRegister").value;
 			var password = document.getElementById("passwordRegister").value;
+			var email = document.getElementById("emailRegister").value;
 			
 			document.getElementById("userNameLogin").value=userName;
 			document.getElementById("passwordLogin").value=password;
+						
 			
-			var newUser= '{"userName":"'+userName+'", "password":"'+password+'", "userpermission":"'+userType+'"}';
+			var newUser= '{"userName":"'+userName+'", "password":"'+password+'", "userpermission":"'+userType+'","email":"'+email+'"}';
 			
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
@@ -120,6 +122,8 @@
 			<input type="text" id="userNameRegister" placeholder="Username">
 			<br>
 			<input type="password" id="passwordRegister" placeholder="Password">
+			<br>
+			<input type="email" id="emailRegister" placeholder="Email address">
 			<br>
 			<form>
 				<input type="radio" id="Demander" name="rate" value="Demander" checked> Zwerver 

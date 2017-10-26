@@ -17,6 +17,7 @@ public class User {
 	private String password;
 	public static enum userType {Supplier, Demander};
 	public userType userpermission;
+	private String email;
 	
 	public User() {}
 	
@@ -25,6 +26,14 @@ public class User {
 		this.userName = userName;
 		this.password = password;
 		this.userpermission = userpermission;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Float getLatitude() {
