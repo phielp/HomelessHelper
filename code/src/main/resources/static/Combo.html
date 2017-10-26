@@ -244,8 +244,9 @@
 					for (x in myObj) {
 						var picture = myObj[x].photo;
 						var picture = showPicture(picture);
-						if (myObj[x].requestSupplier==1){
-							txt += "<tbody><tr bgcolor='#ddffcc'><td>"	
+						if (myObj[x].requestSupplier==true){
+							txt += "<tbody><tr bgcolor='#ddffcc'><td>"
+							
 						}
 						else {
 							txt += "<tbody><tr bgcolor='#FFF'><td>"
@@ -256,7 +257,7 @@
 								+ "<td>"	
 								+ myObj[x].description
 								+ "</td>"
-								if (myObj[x].requestSupplier==1){
+								if (myObj[x].requestSupplier==true){
 									txt+= "<td><button type='button' onclick='deleteRequest(\""
 									+ myObj[x].id
 									+ "\")' >remove</button>"
