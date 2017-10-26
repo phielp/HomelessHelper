@@ -70,5 +70,11 @@ public class HHService {
 	public User getDemander(Long userId) {
 		return demanderrepository.findOne(userId);
 	}
+	
+	public void setRequestAccept(Request request) {
+		requestrepository.save(request);
+	}
+	
+	
 }
 
