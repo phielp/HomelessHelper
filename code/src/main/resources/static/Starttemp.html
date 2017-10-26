@@ -1,0 +1,141 @@
+<html>
+<head>
+	<link rel="stylesheet" href="/css/normalize.css">
+	<link rel="stylesheet" href="/css/skeleton.css">
+	<link rel="stylesheet" href="/css/custom.css">
+	
+	<script>
+		function login() {
+			var userName = document.getElementById("userNameLogin").value;
+			var password = document.getElementById("passwordLogin").value;
+			
+			var user = '{"userName":"'+userName+'", "password":"'+password+'"}';
+			
+			var xhttp = new XMLHttpRequest();
+			
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var check = this.responseText;
+					var data = JSON.parse(check);
+					loginProceed(data);	
+				}
+			};
+      		xhttp.open("POST", "http://localhost:8080/login");
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.send(user);
+		}
+		
+		function loginProceed(data) {
+			if (data[0] == true){
+				
+				setCookie("userID", data[2], 365);
+				setCookie("userType", data[1], 365);
+				
+				if (data[1] == true) {
+					location.href="Combo2.html";
+				}
+				else {
+					location.href="Combo.html";
+				}
+			}
+			else {
+				document.getElementById("inlogfout").innerHTML = "Combination of username and password unknown"}
+			}
+		
+		function setCookie(cname, cvalue, exdays) {
+		    var d = new Date();
+		    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+		    var expires = "expires="+ d.toUTCString();
+		    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		}
+		
+		function register() {
+			var userType;
+			if(document.getElementById('Supplier').checked) {
+				userType = document.getElementById("Supplier").value;
+			} else {
+				userType = document.getElementById("Demander").value;
+			}
+			var userName = document.getElementById("userNameRegister").value;
+			var password = document.getElementById("passwordRegister").value;
+			var email = document.getElementById("emailRegister").value;
+			
+			document.getElementById("userNameLogin").value=userName;
+			document.getElementById("passwordLogin").value=password;
+						
+			
+			var newUser= '{"userName":"'+userName+'", "password":"'+password+'", "userpermission":"'+userType+'","email":"'+email+'"}';
+			
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					
+				}
+			};
+			xhttp.open("POST", "http://localhost:8080/register", true);
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.send(newUser);
+		}
+		
+		function showRegister() {
+			var x = document.getElementById("rightColumn");
+			if (x.style.display === "none") {
+		        x.style.display = "block";
+		    } else {
+		        x.style.display = "none";
+		    }	
+		}
+
+	</script>
+
+<body onload="showRegister()">
+<div class="navbar-spacer"></div>
+    	<div class="container">
+	    <nav class="navbar">
+	      
+	        <ul class="navbar-list">
+	        	
+	        	<li class="navbar-item" style="float:left; margin-top: 2px">
+	          	<img src="homelesshelpergrey.png" onclick="location.href='start.html'">
+	          	</li>
+	   		</ul>
+	    </nav>
+	</div>
+  		
+	<div class="container">
+	<div class="row">
+	
+		<div id="leftColumn" class="six columns">
+			<h3>Login</h3>
+			<input type="text" id="userNameLogin" placeholder="Username">
+			<br>
+			<input type="password" id="passwordLogin" placeholder="Password">
+			<br>
+			<button type="button" id="loginButton" onclick="login()">Login</button>
+			<br>
+			<button type="button" id="registerButton" onclick="this.style.visibility='hidden'; showRegister()">Register</button>
+			<p id="inlogfout"></p>
+		</div>
+		
+		<div id="rightColumn" class="six columns">
+			<h3>Register</h3>
+			<input type="text" id="userNameRegister" placeholder="Username">
+			<br>
+			<input type="password" id="passwordRegister" placeholder="Password">
+			<br>
+			<input type="email" id="emailRegister" placeholder="Email address">
+			<br>
+			<form>
+				<input type="radio" id="Demander" name="rate" value="Demander" checked> Homeless 
+				<input type="radio" id="Supplier" name="rate" value="Supplier"> Helper
+			</form>
+			<button type="button" id="registerButton" onclick="register();">Register</button>
+			
+		</div>	
+	</div>
+</div>
+
+	
+</body>
+</head>
+</html>

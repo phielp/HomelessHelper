@@ -1,0 +1,392 @@
+<html>
+<head>
+	<link rel="stylesheet" href="/css/normalize.css">
+	<link rel="stylesheet" href="/css/skeleton.css">
+	<link rel="stylesheet" href="/css/custom.css">
+	
+	
+	<script src="getCookie.js"></script>
+	<script>
+	
+		/******************************/
+		/* Create Request			 */
+		/******************************/	
+		
+		/* IMG from file */
+		function previewFile() {
+		     var preview = document.querySelector('img');
+		     var file    = document.querySelector('input[type=file]').files[0];
+		     var reader  = new FileReader();
+		
+		     reader.onloadend = function () {
+		         preview.src = reader.result;
+		     }
+		
+		     if (file) {
+		         reader.readAsDataURL(file);
+		     } else {
+		         preview.src = "";
+		     }
+		}
+		
+		/* IMG from url  */
+		function toDataURL(url, callback) {
+			var xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				var reader = new FileReader();
+				reader.onloadend = function() {
+					callback(reader.result);
+				}
+				reader.readAsDataURL(xhttp.response);
+			};
+			xhttp.open('GET', url);
+			xhttp.responseType = 'blob';
+			xhttp.send();
+		}
+		
+		function searchThroughTable() {
+			  var input, filter, table, tr, td, i;
+			  input = document.getElementById("myInput");
+			  filter = input.value.toUpperCase();
+			  table = document.getElementById("requestTable");
+			  tr = table.getElementsByTagName("tr");
+			  for (i = 0; i < tr.length; i++) {
+			    td = tr[i].getElementsByTagName("td")[2];
+			    if (td) {
+			      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+			        tr[i].style.display = "";
+			      } else {
+			        tr[i].style.display = "none";
+			      }
+			    }       
+			  }
+			}
+
+		function createURL() {
+			var imgURL = document.getElementById("imgURL").value;
+
+			toDataURL(imgURL, function(dataUrl) {
+				console.log('RESULT:', dataUrl);
+				createRequest(dataUrl);
+			})
+		}
+		
+		function createRequest(dataUrl) {
+			
+			var requestType;
+			if(document.getElementById('Food').checked) {
+				requestType = document.getElementById("Food").value;
+			} 
+			else if (document.getElementById('Clothes').checked) {
+				requestType = document.getElementById("Clothes").value;
+			}
+			else {
+				requestType = document.getElementById("Other").value;
+			}
+			var description = document.getElementById("description").value;
+			/* var image = document.getElementById("image").value; */
+			
+			var requestTitle = document.getElementById("requestTitle").value;
+			
+			var createdBy = getCookie("userID");
+						
+			var newRequest = '{"inNeedOf":"'+requestType+'", "requestTitle":"'+requestTitle+'", "description":"'+description+'","createdBy":"'+createdBy+'", "photo":"'+dataUrl+'"}';
+			console.log(newRequest);
+			var xhttp = new XMLHttpRequest();
+			
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					showRequests(getCookie('userID'));
+				}
+			};
+      		xhttp.open("POST", "http://localhost:8080/createRequest");
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.send(newRequest);
+		}
+
+		/******************************/
+		/* LOCATION LOCATION LOCATION */
+		/******************************/	
+		
+		/* showMultipleMarkers([[52.3702, 4.89517], [52.386, 4.91838], [52.386, 4.91838]]);
+		
+		function showMultipleMarkers(locationList) {
+			for (var i = 0; i < locationList.length; i++) {
+				console.log({lat: locationList[i][0], lng: locationList[i][1]});
+				createMap({lat: locationList[i][0], lng: locationList[i][1]});
+			}
+		} */
+		
+		function initMap() {
+			var latitude = parseFloat(document.getElementById("lat").value);
+			var longitude = parseFloat(document.getElementById("lng").value);
+			var location = {lat: latitude, lng: longitude};
+			createMap(location);
+		}
+		
+		function createMap(location)	 {
+			var mapOptions = {
+				center: location,
+				zoom: 17,
+				/* mapTypeId: google.maps.MapTypeId.HYBRID, */
+				styles: [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
+			}
+			map = new google.maps.Map(document.getElementById("map"), mapOptions);
+			// set multiple markers
+			
+			var marker = new google.maps.Marker({
+				position: location,
+				map: map
+			})
+			var geocoder = new google.maps.Geocoder();
+			document.getElementById('pinPoint2').addEventListener('click', function() {
+				geocodeAddress(geocoder, map);
+			});
+		}
+		
+		function geocodeAddress(geocoder, resultsMap) {
+			var address = document.getElementById('address').value;
+			geocoder.geocode({'address': address}, function(results, status) {
+				if (status === 'OK') {
+					resultsMap.setCenter(results[0].geometry.location);
+					var marker = new google.maps.Marker({
+						map: resultsMap,
+						position: results[0].geometry.location
+					});
+					var latFinal = marker.getPosition().lat();
+					var lngFinal = marker.getPosition().lng();
+					
+					setLocation(latFinal, lngFinal, getCookie('userID'));
+					
+				} else {
+					alert('Geocode was not successful for the following reason: ' + status);
+				}
+			});	
+		}
+		
+		function setLocation(latitude, longitude, id) {
+			// TODO: get id from cookie
+			var location = '{"latitude":'+latitude+', "longitude":'+longitude+', "id": '+id+'}';
+			console.log(location);
+			
+			var xhttp = new XMLHttpRequest();
+			
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+
+				}
+			};
+      		xhttp.open("POST", "http://localhost:8080/setlocation");
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.send(location);
+		}
+		
+		function getLocation(id) {
+			// TODO: get id from cookie
+			var userId = '{"id":'+id+'}';
+			
+			var xhttp = new XMLHttpRequest();
+			
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					locationBD = this.responseText;
+					var data = JSON.parse(locationBD);
+					console.log(data[0]);
+					
+					// Display location from DB
+					if (data[0] != null) {
+						createMap({lat: data[0], lng: data[1]});
+					}
+					else {
+						console.log("o");
+						createMap({lat: 52.5092841, lng: 6.064451299999973});
+					}
+					
+				}
+			};
+      		xhttp.open("POST", "http://localhost:8080/getlocation");
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.send(userId);
+		}
+		
+		/******************************/
+		/* Demander					 */
+		/******************************/	
+		
+		function userPermission() {
+			if (getCookie('userType') == "false") {
+				console.log("welkom");
+				/* return true; */
+			} else {
+				console.log("wegwezen!");
+				/* return false; */
+				/* location.href="Login.html"; */
+			}
+		}	
+	
+		function showRequests(myId) {
+			var obj, dbParam, xmlhttp, myObj, x, txt = "";
+			obj = {
+				"table" : "requests",
+				"limit" : 20
+			};
+			dbParam = JSON.stringify(obj);
+			xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					myObj = JSON.parse(this.responseText);
+					txt += "<table id='requestTable' border='1' class=\"u-full-width\">"
+					txt += "<thead><tr><th>Title</th><th>Image</th><th>Description</th><th>Action</th></tr></thead>"
+					console.log(myObj);
+					if (myObj.length==0){
+						txt = "You have not made any requests yet. To start, use the menu on the right.";
+						}
+					else {
+					for (x in myObj) {
+						var picture = myObj[x].photo;
+						var picture = showPicture(picture);
+						if (myObj[x].requestSupplier==true){
+							txt += "<tbody><tr bgcolor='#ddffcc'><td>"
+							
+						}
+						else {
+							txt += "<tbody><tr bgcolor='#FFF'><td>"
+						}
+								txt += myObj[x].requestTitle
+								+ "</td>"
+								+ "<td> <img src='"+picture+"' style='width:100px;height:100px;' /></td>"
+								+ "<td>"	
+								+ myObj[x].description
+								+ "</td>"
+								if (myObj[x].requestSupplier==true){
+									txt+= "<td><button type='button' onclick='deleteRequest(\""
+									+ myObj[x].id
+									+ "\")' >remove</button>"
+									+ "<button type='button' onclick='getHelp(\""
+									+ myObj[x].id
+									+ "\")' >get help</button>"
+									+ "</td> </tr></div>";
+								}
+								else{
+									txt+= "<td><button type='button' onclick='deleteRequest(\""
+										+ myObj[x].id
+										+ "\")' >remove</button></td> </tr>";
+								}
+					}
+					
+					txt += "</tbody></table>"
+					}
+					document.getElementById("demo").innerHTML = txt;
+				}
+			};
+			var str = "http://localhost:8080/demander/" + myId;
+			xmlhttp.open("GET", str);
+			xmlhttp.send();
+		}
+		
+		function deleteRequest(myId) {
+			xmlhttp = new XMLHttpRequest();
+			
+			xmlhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					showRequests(getCookie('userID'));
+				}
+			};
+			
+			var str = "http://localhost:8080/demander/" + myId;
+			xmlhttp.open("DELETE", str);
+			xmlhttp.send();
+		}
+		
+		function showPicture(incomingpicture){
+			if (incomingpicture.length<=15782){
+				var picture="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBoZWlnaHQ9IjMwMHB4IiB3aWR0aD0iMzAwcHgiIHZlcnNpb249IjEuMCIgdmlld0JveD0iLTMwMCAtMzAwIDYwMCA2MDAiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8Y2lyY2xlIHN0cm9rZT0iI0FBQSIgc3Ryb2tlLXdpZHRoPSIxMCIgcj0iMjgwIiBmaWxsPSIjRkZGIi8+Cjx0ZXh0IHN0eWxlPSJsZXR0ZXItc3BhY2luZzoxO3RleHQtYW5jaG9yOm1pZGRsZTt0ZXh0LWFsaWduOmNlbnRlcjtzdHJva2Utb3BhY2l0eTouNTtzdHJva2U6IzAwMDtzdHJva2Utd2lkdGg6MjtmaWxsOiM0NDQ7Zm9udC1zaXplOjM2MHB4O2ZvbnQtZmFtaWx5OkJpdHN0cmVhbSBWZXJhIFNhbnMsTGliZXJhdGlvbiBTYW5zLCBBcmlhbCwgc2Fucy1zZXJpZjtsaW5lLWhlaWdodDoxMjUlO3dyaXRpbmctbW9kZTpsci10YjsiIHRyYW5zZm9ybT0ic2NhbGUoLjIpIj4KPHRzcGFuIHk9Ii00MCIgeD0iOCI+Tk8gSU1BR0U8L3RzcGFuPgo8dHNwYW4geT0iNDAwIiB4PSI4Ij5BVkFJTEFCTEU8L3RzcGFuPgo8L3RleHQ+Cjwvc3ZnPg==";
+				return picture;
+			}
+			else 
+				return incomingpicture;
+		};
+		
+		
+		
+
+		
+	</script>
+	
+</head>
+
+<body onload="getLocation(getCookie('userID')), userPermission(), showRequests(getCookie('userID'))">
+
+	<div class="container">
+	    <nav class="navbar">
+	      
+	        <ul class="navbar-list">
+	        	
+	        	<li class="navbar-item" style="float:left; margin-top: 2px">
+	          	<img src="homelesshelpergrey.png" onclick="location.href='start.html'">
+	          	</li>
+
+	          	<li class="navbar-item" style="float:right"><a class="navbar-link" href="Start.html">Logout</a></li>
+	          	
+	          	<li class="navbar-item" 
+	     			style="margin-top:15px; float:right; margin-right:2.5%;">
+	     			<input type="text" id="myInput" onkeyup="searchThroughTable()" placeholder="Search for requests..." title="Type in a name"></li>
+	   		</ul>
+	    </nav>
+	</div>
+	
+	<div class="container">
+		<div class="row">
+			<div id="leftColumn" class="six columns">
+				<h3>Current Requests</h3>
+	   		    <p id="demo"></p>
+			</div>	
+			
+			<div id="rightColumn" class="six columns">
+	
+				<div id="rightColumnTop">
+					<h3>Create New Request</h3>
+					
+					<div class="row">
+						<div class="six columns">
+							<input type="text" id="requestTitle" placeholder="Request title">
+							<input type="text" id="imgURL" placeholder="Image URL">
+						</div>
+						
+						<div class="six columns">
+							<input type="radio" id="Food" name="rate" value="FOOD" checked> Food <br>
+							<input type="radio" id="Clothes" name="rate" value="CLOTHES"> Clothing <br>
+							<input type="radio" id="Other" name="rate" value="OTHER"> Other <br>
+						</div>
+					</div>
+						
+					<textarea id="description" rows="20" cols="42" placeholder="Description of request"></textarea>
+					<button type="button" id="makeRequest" onclick="createURL(), showRequests(getCookie('userID'))">Create Request</button> 
+				</div>
+				
+				<div id="rightColumnBottom">
+					<h3>Mark Location</h3>
+					
+					<div class="row">
+						<div class="six columns">
+							<input type="text" id="address" placeholder=Address>
+						</div>
+						<div class="six columns">
+							<button type="button" id="pinPoint2">Mark Location</button>
+						</div>
+					</div>
+
+					<div id="map" style="width:500px;height:500px;background:lightgrey" class=mapStyle></div>
+					
+				</div>
+				
+			</div>	
+		</div>
+	</div>
+	
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4Kc240y7EnXNjfoKwXu-D4-HoelP_fU&callback=createMap">
+	</script>
+	
+</body>
+</html>
