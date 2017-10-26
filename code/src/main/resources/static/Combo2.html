@@ -67,7 +67,10 @@
 								+ SLon
 								+ ");helpRequester("
 								+ myObj[x][3]
-								+ ")'>Help</button></center><center>"
+								+ ");getHelp("
+								+ myObj[x][7]
+								+ ");"
+								+ "'>Help</button></center><center>"
 								+ myObj[x][0]
 								+ "<center></td><td>" 
 								+ getDistanceToRequester(locationList[x][0],locationList[x][1], SLat, SLon)
@@ -178,9 +181,8 @@
 		}
 		
 		function helpRequester(requestID) {
-			console.log(requestID);
-			var request = '{"id":'+requestID+', "requestSupplier": 1}';
-			console.log(request);
+			userID = getCookie('userID');
+			var request = '{"id":'+requestID+', "requestSupplier": 1, "helpedBy":'+userID+'}';
 			var xhttp = new XMLHttpRequest();
 			
 			xhttp.onreadystatechange = function() {
@@ -192,6 +194,23 @@
 			xhttp.setRequestHeader("Content-type", "application/json");
 			xhttp.send(request);
 		}
+		
+		function getHelp(userID) {
+			console.log(userID);
+
+			var xhttp = new XMLHttpRequest();
+			
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var response = this.responseText;
+					document.getElementById("contact").innerHTML = response;
+				}
+			};
+      		xhttp.open("GET", "http://localhost:8080/getEmail/" + userID);
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.send();
+		}
+		
 
 	</script>
 	
@@ -228,6 +247,9 @@
 			</div>
 			
 			<div class="six columns">
+				<h3>Contact info</h3>
+				<p id="contact"></p>
+
 				<h3>Request locations</h3>
 				<div class="row">
 					<div class="six columns">

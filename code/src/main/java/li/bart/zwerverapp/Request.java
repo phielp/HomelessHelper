@@ -20,7 +20,14 @@ public class Request {
 	private enum requestType {FOOD, CLOTHES, OTHER};
 	private requestType inNeedOf;
 	private Long createdBy;
+	private Long helpedBy;
 	
+	public Long getHelpedBy() {
+		return helpedBy;
+	}
+	public void setHelpedBy(Long helpedBy) {
+		this.helpedBy = helpedBy;
+	}
 	public Long getCreatedBy() {
 		return createdBy;
 	}

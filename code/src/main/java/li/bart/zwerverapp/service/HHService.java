@@ -75,7 +75,13 @@ public class HHService {
 		Long id = request.getId();
 		Request tempRequest = requestrepository.findOne(id);
 		tempRequest.setRequestSupplier(request.getRequestSupplier());
+		tempRequest.setHelpedBy(request.getHelpedBy());
 		requestrepository.save(tempRequest);
+	}
+	
+	public String getEmail(long id) {
+		User demander = demanderrepository.findOne(id);
+		return demander.getEmail();
 	}
 }
 

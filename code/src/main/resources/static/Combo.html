@@ -263,7 +263,7 @@
 									+ myObj[x].id
 									+ "\")' >remove</button>"
 									+ "<button type='button' onclick='getHelp(\""
-									+ myObj[x].id
+									+ myObj[x].helpedBy
 									+ "\")' >get help</button>"
 									+ "</td> </tr></div>";
 								}
@@ -307,10 +307,21 @@
 				return incomingpicture;
 		};
 		
-		
-		
+		function getHelp(userID) {
 
-		
+			var xhttp = new XMLHttpRequest();
+			
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var response = this.responseText;
+					document.getElementById("contact").innerHTML = response;
+				}
+			};
+      		xhttp.open("GET", "http://localhost:8080/getEmail/" + userID);
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.send();
+		}
+
 	</script>
 	
 </head>
@@ -343,6 +354,8 @@
 			</div>	
 			
 			<div id="rightColumn" class="six columns">
+				<h3>Contact info</h3>
+				<p id="contact"></p>
 	
 				<div id="rightColumnTop">
 					<h3>Create New Request</h3>
@@ -361,6 +374,7 @@
 					</div>
 						
 					<textarea id="description" rows="20" cols="42" placeholder="Description of request"></textarea>
+					<br>
 					<button type="button" id="makeRequest" onclick="createURL(), showRequests(getCookie('userID'))">Create Request</button> 
 				</div>
 				

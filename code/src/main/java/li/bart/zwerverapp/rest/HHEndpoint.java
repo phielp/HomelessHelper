@@ -115,6 +115,11 @@ public class HHEndpoint {
 		Request request = hhservice.showSingleRequest(id);
 		return request.getRequestSupplier();
 	}
+	
+	@GetMapping("/getEmail/{id}")
+	public String getEmail(@PathVariable long id) {
+		return hhservice.getEmail(id);
+	}
 }
 
 	
