@@ -72,9 +72,10 @@ public class HHService {
 	}
 	
 	public void setRequestAccept(Request request) {
-		requestrepository.save(request);
+		Long id = request.getId();
+		Request tempRequest = requestrepository.findOne(id);
+		tempRequest.setRequestSupplier(request.getRequestSupplier());
+		requestrepository.save(tempRequest);
 	}
-	
-	
 }
 
