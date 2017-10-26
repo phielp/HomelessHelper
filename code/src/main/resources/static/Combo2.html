@@ -41,19 +41,20 @@
 					//alert(myObj.length);
 					var locationList = [];
 					txt += "<table id='supplierTable' border='1'>"
-					txt += "<thead><tr><th>Title</th><th>Image</th><th>Description</th><th>Vrager</th></tr></thead>"
+					txt += "<thead><tr><th>Title</th><th>Image</th><th>Description</th><th>Demander</th><th>Distance</th></tr></thead>"
 					for (x in myObj) {
 						locationList[x] = [myObj[x][5], myObj[x][6]];
 						var picture = myObj[x][4];
 						var picture = showPicture(picture);
 						txt += "<tbody><tr><td>"
-								+ myObj[x][2] 
+								+ myObj[x][2]
 								+ "</td> <td> <img src='"+picture+"' style='width:100px;height:100px;' />"	
 								+ "</td><td>"
 								+ myObj[x][1]
 								+ "</td><td>"
+								+ "<center><button type='button' style='padding: 0 10px' onclick='helpRequester()'>Help</button></center><center>"
 								+ myObj[x][0]
-								+ "</td><td>" 
+								+ "<center></td><td>" 
 								+ getDistanceToRequester(locationList[x][0],locationList[x][1], SLat, SLon)
 								+ "</td>";
 								

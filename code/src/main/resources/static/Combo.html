@@ -3,7 +3,7 @@
 	<link rel="stylesheet" href="/css/normalize.css">
 	<link rel="stylesheet" href="/css/skeleton.css">
 	<link rel="stylesheet" href="/css/custom.css">
-	<link rel="stylesheet" href="/css/dropdown.css">
+	
 	
 	<script src="getCookie.js"></script>
 	<script>
@@ -245,9 +245,7 @@
 						var picture = myObj[x].photo;
 						var picture = showPicture(picture);
 						if (myObj[x].requestSupplier==true){
-							txt += "<tbody><tr onmouseover='dropdownFunction()' bgcolor='#EEE'><div id='myDropdown' class='dropdown-content'>"
-								+ myObj[x].requestSupplier
-								+ "</div><td>"
+							txt += "<tbody><tr bgcolor='#ddffcc'><td>"
 							
 						}
 						else {
@@ -256,12 +254,23 @@
 								txt += myObj[x].requestTitle
 								+ "</td>"
 								+ "<td> <img src='"+picture+"' style='width:100px;height:100px;' /></td>"
-								+ "<td>"
+								+ "<td>"	
 								+ myObj[x].description
 								+ "</td>"
-								+ "<td><button type='button' onclick='deleteRequest(\""
-								+ myObj[x].id
-								+ "\")' >remove</button></td> </tr>";
+								if (myObj[x].requestSupplier==true){
+									txt+= "<td><button type='button' onclick='deleteRequest(\""
+									+ myObj[x].id
+									+ "\")' >remove</button>"
+									+ "<button type='button' onclick='getHelp(\""
+									+ myObj[x].id
+									+ "\")' >get help</button>"
+									+ "</td> </tr></div>";
+								}
+								else{
+									txt+= "<td><button type='button' onclick='deleteRequest(\""
+										+ myObj[x].id
+										+ "\")' >remove</button></td> </tr>";
+								}
 					}
 					
 					txt += "</tbody></table>"
@@ -298,9 +307,7 @@
 		};
 		
 		
-		function dropdownFunction() {
-		    document.getElementById("myDropdown").classList.toggle("show");
-		}
+		
 
 		
 	</script>
