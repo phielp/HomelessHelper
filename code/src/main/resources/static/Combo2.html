@@ -12,6 +12,14 @@
 	<script type="text/javascript" src="tablesorter.js"></script>
 	
 	<script>
+		function userPermission() {
+			if (getCookie('userType') == "true") {
+				console.log("welkom");
+			} else {
+				console.log("wegwezen!");
+				location.href="Start.html";
+			}
+		}	
 	
 		function searchThroughSupplierTable() {
 			  var input, filter, table, tr, td, i;
@@ -224,7 +232,7 @@
 	</script>
 	
 </head>
-<body onload="getAllUsers()">
+<body onload="userPermission(), getAllUsers()">
 
 	<div class="container">
 	    <nav class="navbar">

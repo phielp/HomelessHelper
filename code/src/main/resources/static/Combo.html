@@ -10,6 +10,15 @@
 	<script src="getCookie.js"></script>
 	<script>
 	
+		function userPermission() {
+			if (getCookie('userType') == "false") {
+				console.log("welkom");
+			} else {
+				console.log("wegwezen!");
+				location.href="Start.html";
+			}
+		}	
+	
 		/******************************/
 		/* Create Request			 */
 		/******************************/	
@@ -110,15 +119,6 @@
 		/* LOCATION LOCATION LOCATION */
 		/******************************/	
 		
-		/* showMultipleMarkers([[52.3702, 4.89517], [52.386, 4.91838], [52.386, 4.91838]]);
-		
-		function showMultipleMarkers(locationList) {
-			for (var i = 0; i < locationList.length; i++) {
-				console.log({lat: locationList[i][0], lng: locationList[i][1]});
-				createMap({lat: locationList[i][0], lng: locationList[i][1]});
-			}
-		} */
-		
 		function initMap() {
 			var latitude = parseFloat(document.getElementById("lat").value);
 			var longitude = parseFloat(document.getElementById("lng").value);
@@ -214,17 +214,6 @@
 		/******************************/
 		/* Demander					 */
 		/******************************/	
-		
-		function userPermission() {
-			if (getCookie('userType') == "false") {
-				console.log("welkom");
-				/* return true; */
-			} else {
-				console.log("wegwezen!");
-				/* return false; */
-				/* location.href="Login.html"; */
-			}
-		}	
 	
 		function showRequests(myId) {
 			var obj, dbParam, xmlhttp, myObj, x, txt = "";
@@ -328,7 +317,7 @@
 	
 </head>
 
-<body onload="getLocation(getCookie('userID')), userPermission(), showRequests(getCookie('userID'))">
+<body onload="userPermission(), getLocation(getCookie('userID')), showRequests(getCookie('userID'))">
 
 	<div class="container">
 	    <nav class="navbar">
