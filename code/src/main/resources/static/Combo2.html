@@ -44,7 +44,7 @@
 					//alert(myObj.length);
 					var locationList = [];
 					txt += "<table id='supplierTable' border='1'>"
-					txt += "<thead><tr><th>Title</th><th>Image</th><th>Description</th><th>Demander</th><th>Distance</th></tr></thead><tbody>"
+					txt += "<thead><tr><th>Title</th><th>Image</th><th>Description</th><th>Name</th><th>Distance</th></tr></thead><tbody>"
 					console.log()
 					for (x in myObj) {
 						locationList[x] = [myObj[x][5], myObj[x][6]];
@@ -260,7 +260,7 @@
 					</div>
 				</div>
 
-				<div id="map" style="width:500px;height:500px;background:lightgrey" class=mapStyle></div>	
+				<div id="map" class=mapStyle></div>	
 				
 			</div>
 		</div>
