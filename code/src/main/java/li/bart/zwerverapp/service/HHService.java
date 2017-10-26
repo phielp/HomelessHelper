@@ -70,5 +70,12 @@ public class HHService {
 	public User getDemander(Long userId) {
 		return demanderrepository.findOne(userId);
 	}
+	
+	public void setRequestAccept(Request request) {
+		Long id = request.getId();
+		Request tempRequest = requestrepository.findOne(id);
+		tempRequest.setRequestSupplier(request.getRequestSupplier());
+		requestrepository.save(tempRequest);
+	}
 }
 

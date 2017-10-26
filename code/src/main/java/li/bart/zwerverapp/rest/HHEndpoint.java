@@ -107,13 +107,13 @@ public class HHEndpoint {
 	
 	@PostMapping("/setRequestAccept")
 	public void setRequestAccept(@RequestBody Request request) {
-		hhservice.postRequest(request);
+		hhservice.setRequestAccept(request);
 	}
 	
 	@GetMapping("/getRequestAccept/{id}")
-	public boolean getRequestAccept(@PathVariable long id) {
+	public int getRequestAccept(@PathVariable long id) {
 		Request request = hhservice.showSingleRequest(id);
-		return request.isRequestSupplier();
+		return request.getRequestSupplier();
 	}
 }
 

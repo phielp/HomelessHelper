@@ -16,7 +16,7 @@ public class Request {
 	
 	private String description;
 	private String requestTitle;
-	private boolean requestSupplier, requestDemander;
+	private int requestSupplier, requestDemander;
 	private enum requestType {FOOD, CLOTHES, OTHER};
 	private requestType inNeedOf;
 	private Long createdBy;
@@ -45,18 +45,6 @@ public class Request {
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
-	public boolean isRequestSupplier() {
-		return requestSupplier;
-	}
-	public void setRequestSupplier(boolean requestSupplier) {
-		this.requestSupplier = requestSupplier;
-	}
-	public boolean isRequestDemander() {
-		return requestDemander;
-	}
-	public void setRequestDemander(boolean requestDemander) {
-		this.requestDemander = requestDemander;
-	}
 	public requestType getInNeedOf() {
 		return inNeedOf;
 	}
@@ -68,5 +56,17 @@ public class Request {
 	}
 	public void setRequestTitle(String requestTitle) {
 		this.requestTitle = requestTitle;
+	}
+	public int getRequestSupplier() {
+		return requestSupplier;
+	}
+	public void setRequestSupplier(int requestSupplier) {
+		this.requestSupplier = requestSupplier;
+	}
+	public int getRequestDemander() {
+		return requestDemander;
+	}
+	public void setRequestDemander(int requestDemander) {
+		this.requestDemander = requestDemander;
 	}
 }
