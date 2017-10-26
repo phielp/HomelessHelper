@@ -31,12 +31,8 @@
 .container {
   position: relative;
   width: 100%;
-  /* max-width: 960px; */
   margin: 0 auto;
- /*  margin-top: 1%; */
   margin-bottom: 3%;
-  /* margin-left: 5%; */
-  /* margin-right: 10px; */
   padding: 0 20px;
   box-sizing: border-box; }
 .column,
@@ -55,7 +51,7 @@
 /* For devices larger than 550px */
 @media (min-width: 550px) {
   .container {
-    width: 80%; }
+    width: 90%; }
   .column,
   .columns {
     margin-left: 4%; }
@@ -158,7 +154,6 @@ h6 { font-size: 1.5rem; line-height: 1.6;  letter-spacing: 0; }
 p {
   margin-top: 0; }
 
-
 /* Links
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 a {
@@ -166,6 +161,12 @@ a {
 a:hover {
   color: #0FA0CE; }
 
+
+.mapStyle {
+	width:100%;
+	height:500px;
+	background:lightgrey
+}
 
 /* Buttons
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
