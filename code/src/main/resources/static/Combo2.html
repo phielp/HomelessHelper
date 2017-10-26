@@ -44,8 +44,11 @@
 					//alert(myObj.length);
 					var locationList = [];
 					txt += "<table id='supplierTable' border='1'>"
-					txt += "<thead><tr><th>Title</th><th>Image</th><th>Description</th><th>Name</th><th>Distance</th></tr></thead><tbody>"
-					console.log()
+					txt += "<thead><tr><th>Title</th><th>Image</th><th>Description</th><th>Name</th><th>Distance</th></tr></thead><tbody>"	
+					if (myObj.length==0){
+						txt = "No requests have been made yet by any homeless people. Please be patient.";
+						}
+					else{
 					for (x in myObj) {
 						locationList[x] = [myObj[x][5], myObj[x][6]];
 						var picture = myObj[x][4];
@@ -78,6 +81,7 @@
 								
 					}	
 					txt += "</tbody></table>"
+					}
 					document.getElementById("demo").innerHTML = txt;
 					$("#supplierTable").tablesorter({sortList:[[4,0]]}); 
 				}
@@ -203,7 +207,7 @@
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 					var response = this.responseText;
-					document.getElementById("contact").innerHTML = response;
+					document.getElementById("contact").innerHTML = "You indicated to help a homeless person with a request, contact him by email:<br><br><code>"  + response +"</code>";
 				}
 			};
       		xhttp.open("GET", "http://localhost:8080/getEmail/" + userID);
