@@ -5,7 +5,10 @@
 	<link rel="stylesheet" href="/css/skeleton.css">
 	<link rel="stylesheet" href="/css/custom.css">
 	
+	
 	<script src="getCookie.js"></script>
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript" src="tablesorter.js"></script>
 	
 	<script>
 	
@@ -41,18 +44,28 @@
 					//alert(myObj.length);
 					var locationList = [];
 					txt += "<table id='supplierTable' border='1'>"
-					txt += "<thead><tr><th>Title</th><th>Image</th><th>Description</th><th>Demander</th><th>Distance</th></tr></thead>"
+					txt += "<thead><tr><th>Title</th><th>Image</th><th>Description</th><th>Demander</th><th>Distance</th></tr></thead><tbody>"
+					console.log()
 					for (x in myObj) {
 						locationList[x] = [myObj[x][5], myObj[x][6]];
 						var picture = myObj[x][4];
 						var picture = showPicture(picture);
-						txt += "<tbody><tr><td>"
-								+ myObj[x][2]
+						if (myObj[x][8]==1) {
+							txt 	+= "<tr bgcolor='#ddffcc'><td>"
+						}
+						else {
+							txt 	+= "<tr bgcolor='#FFF'><td>"
+						}
+						txt 	+= myObj[x][2]
 								+ "</td> <td> <img src='"+picture+"' style='width:100px;height:100px;' />"	
 								+ "</td><td>"
 								+ myObj[x][1]
 								+ "</td><td>"
-								+ "<center><button type='button' style='padding: 0 10px' onclick='helpRequester("
+								+ "<center><button type='button' style='padding: 0 10px' onclick='showRequests("
+								+ SLat
+								+ ","
+								+ SLon
+								+ ");helpRequester("
 								+ myObj[x][3]
 								+ ")'>Help</button></center><center>"
 								+ myObj[x][0]
@@ -63,6 +76,7 @@
 					}	
 					txt += "</tbody></table>"
 					document.getElementById("demo").innerHTML = txt;
+					$("#supplierTable").tablesorter({sortList:[[4,0]]}); 
 				}
 			};
 			xmlhttp.open("GET", "http://localhost:8080/supplier");
