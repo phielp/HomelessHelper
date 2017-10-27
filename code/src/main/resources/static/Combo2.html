@@ -53,7 +53,7 @@
 					//alert(myObj.length);
 					var locationList = [];
 					txt += "<table id='supplierTable' border='1'>"
-					txt += "<thead><tr><th>Title</th><th>Image</th><th>Description</th><th>Name</th><th>Distance</th></tr></thead><tbody>"	
+					txt += "<thead><tr><th>Title</th><th>Image</th><th>Description</th><th>Name</th><th>Distance	(m)</th></tr></thead><tbody>"	
 					if (myObj.length==0){
 						txt = "No requests have been made yet by any homeless people. Please be patient.";
 						}
@@ -184,16 +184,14 @@
 		function getDistanceToRequester(RLat, RLon, SLat, SLon){
 
 			var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(SLat, SLon), new google.maps.LatLng(RLat, RLon));
-			if (distance<1000){
-				return distance.toFixed(0) + "m";
-			}
-			else{
-				return (distance/1000).toFixed(1) + "km";
-			}
+			
+				return distance.toFixed(0);
+			
 			
 		}
 		
 		function helpRequester(requestID) {
+			
 			userID = getCookie('userID');
 			var request = '{"id":'+requestID+', "requestSupplier": 1, "helpedBy":'+userID+'}';
 			var xhttp = new XMLHttpRequest();
@@ -206,6 +204,7 @@
       		xhttp.open("POST", "http://localhost:8080/setRequestAccept");
 			xhttp.setRequestHeader("Content-type", "application/json");
 			xhttp.send(request);
+			
 		}
 		
 		function getHelp(userID) {
@@ -224,6 +223,9 @@
 			xhttp.send();
 		}
 		
+		function sleep(ms) {
+    		return new Promise(resolve => setTimeout(resolve, ms));
+		}
 
 	</script>
 	
